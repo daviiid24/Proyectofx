@@ -1,4 +1,4 @@
-package co.edu.uniquindio.proyecto.proyectoapp;
+package co.edu.uniquindio.proyecto;
 
 import javafx.application.Application;
 

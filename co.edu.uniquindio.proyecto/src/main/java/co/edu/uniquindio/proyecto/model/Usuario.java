@@ -1,5 +1,7 @@
 package co.edu.uniquindio.proyecto.model;
 
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 
 public class Usuario extends Persona {
@@ -27,6 +29,10 @@ public class Usuario extends Persona {
 
     public ArrayList<Asistencia> getAsistencias() {
         return asistencias;
+    }
+
+    public void registrarAsistencia(Asistencia asistencia) {
+        asistencias.add(asistencia);
     }
 
     public Gimnasio getOwnedByGimnasio() {

@@ -305,7 +305,7 @@ public class Gimnasio {
     }
 
 
-    public boolean crearUsuario(String nombre, String identificacion, int edad,
+    public Usuario crearUsuario(String nombre, String identificacion, int edad,
                                 String telefono, TipoUsuario tipoUsuario) {
         Usuario usuarioEncontrado = obtenerUsuario(identificacion);
         if (usuarioEncontrado == null) {
@@ -317,9 +317,9 @@ public class Gimnasio {
             usuario.setTipoUsuario(tipoUsuario);
             getListaUsuarios().add(usuario);
 
-            return true;
+            return usuario;
         } else {
-            return false;
+            return null;
         }
     }
 

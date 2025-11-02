@@ -29,10 +29,6 @@ public class Usuario extends Persona {
         return asistencias;
     }
 
-    public void registrarAsistencia(Asistencia asistencia) {
-        asistencias.add(asistencia);
-    }
-
     public Gimnasio getOwnedByGimnasio() {
         return ownedByGimnasio;
     }

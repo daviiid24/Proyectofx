@@ -3,15 +3,22 @@ package co.edu.uniquindio.proyecto.ViewController;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import co.edu.uniquindio.proyecto.controller.UsuarioController;
+import co.edu.uniquindio.proyecto.model.TipoUsuario;
 import co.edu.uniquindio.proyecto.model.Usuario;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 
-public class CrudUsuarioViewController {
+public class CrudUsuarioViewController implements Initializable {
+
+    UsuarioController usuarioController;
+    ObservableList<Usuario> listaUsuarios=FXCollections.observableArrayList();
+    Usuario usuarioSelecionado;
 
     @FXML
     private ResourceBundle resources;
@@ -29,10 +36,19 @@ public class CrudUsuarioViewController {
     private Button btnNuevo;
 
     @FXML
-    private TableView<Usuario> tableEstudiante;
+    private ChoiceBox<TipoUsuario> chTipoUsuario;
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        ObservableList<TipoUsuario> tipos = FXCollections.observableArrayList(TipoUsuario.values());
+        chTipoUsuario.setItems(tipos);
+
+
+        chTipoUsuario.setValue(null);
+    }
     @FXML
-    private TableColumn<Usuario, String> tcAopellido;
+    private TableView<Usuario> tableUsuario;
 
     @FXML
     private TableColumn<Usuario, String> tcEdad;
@@ -42,6 +58,12 @@ public class CrudUsuarioViewController {
 
     @FXML
     private TableColumn<Usuario, String> tcNombre;
+
+    @FXML
+    private TableColumn<Usuario, String> tcTelefono;
+
+    @FXML
+    private TableColumn<Usuario, String> tcTipoUsuario;
 
     @FXML
     private TextField txtApellido;
@@ -74,6 +96,30 @@ public class CrudUsuarioViewController {
 
     @FXML
     void initialize() {
+        usuarioController = new UsuarioController();
+        initView();
+    }
+    private void initView() {
+        initDataBinding();
+        obtenerUsuarios();
+        tableUsuario.getItems().clear();
+        tableUsuario.setItems(listaUsuarios);
+        listenerSelection();
+    }
+
+    private void initDataBinding() {
+        tcNombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
+        tcIdentificacion.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdentificacion()));
+        tcEdad.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getEdad())));
+        tcTelefono.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTelefono()));
+        tcTipoUsuario.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTipoUsuario().toString()));
+    }
+
+    private void listenerSelection() {
+        tableUsuario.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            usuarioSelecionado = newSelection;
+            mostrarInformacion(usuarioSelecionado);
+        });
     }
 
 }

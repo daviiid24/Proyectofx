@@ -36,7 +36,7 @@ public class CrudUsuarioViewController implements Initializable {
     private Button btnAgregar;
 
     @FXML
-    private Button btnNuevo;
+    private Button btnEliminar;
 
     @FXML
     private ChoiceBox<TipoUsuario> chTipoUsuario;
@@ -82,7 +82,7 @@ public class CrudUsuarioViewController implements Initializable {
     }
 
     @FXML
-    void onActionNuevo(ActionEvent event) {
+    void onActionEliminar(ActionEvent event) {
 
     }
 

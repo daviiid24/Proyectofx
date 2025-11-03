@@ -28,4 +28,12 @@ public class ModelFactory {
     public Usuario crearUsuario(String nombre, String identificacion, String edad, String telefono, String tipoUsuario) {
         return gimnasio.crearUsuario(nombre, identificacion, Integer.parseInt(edad), telefono, TipoUsuario.valueOf(tipoUsuario));
     }
+
+    public Usuario actualizarUsuario(String nombre, String identificacion, String edad, String telefono, String tipoUsuarioStr) {
+        return gimnasio.actualizarUsuario(nombre, identificacion, Integer.parseInt(edad), telefono, TipoUsuario.valueOf(tipoUsuarioStr));
+    }
+
+    public Usuario eliminarUsuario(String identificacion) {
+        return gimnasio.eliminarUsuario(identificacion);
+    }
 }

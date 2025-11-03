@@ -323,17 +323,17 @@ public class Gimnasio {
         }
     }
 
-    public boolean eliminarUsuario(String idEliminar) {
+    public Usuario eliminarUsuario(String idEliminar) {
         Usuario usuarioEncontrado = obtenerUsuario(idEliminar);
         if (usuarioEncontrado != null) {
             getListaUsuarios().remove(usuarioEncontrado);
-            return true;
+            return usuarioEncontrado;
         } else {
-            return false;
+            return null;
         }
     }
 
-    public boolean actualizarUsuario(String nombre, String identificacion, int edad,
+    public Usuario actualizarUsuario(String nombre, String identificacion, int edad,
                                      String telefono, TipoUsuario tipoUsuario) {
         Usuario usuarioEncontrado = obtenerUsuario(identificacion);
         if (usuarioEncontrado.getIdentificacion().equalsIgnoreCase(identificacion)) {
@@ -343,9 +343,9 @@ public class Gimnasio {
             usuarioEncontrado.setTelefono(telefono);
             usuarioEncontrado.setTipoUsuario(tipoUsuario);
 
-            return true;
+            return usuarioEncontrado;
         } else {
-            return false;
+            return null;
         }
     }
 

@@ -22,4 +22,16 @@ public class UsuarioController {
                                 String tipoUsuario) {
      return modelFactory.crearUsuario(nombre, identificacion, edad, telefono, tipoUsuario);
     }
+
+    public Usuario actualizarUsuario(String nombre,
+                                     String identificacion,
+                                     String edad,
+                                     String telefono,
+                                     String tipoUsuarioStr) {
+        return modelFactory.actualizarUsuario(nombre, identificacion, edad, telefono, tipoUsuarioStr);
+    }
+
+    public Usuario eliminarUsuario(String identificacion) {
+     return modelFactory.eliminarUsuario(identificacion);
+    }
 }

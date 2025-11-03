@@ -73,7 +73,7 @@ public class CrudUsuarioViewController implements Initializable {
 
     @FXML
     void onActionActualizar(ActionEvent event) {
-
+        actualizarUsuario();
     }
 
     @FXML
@@ -83,7 +83,7 @@ public class CrudUsuarioViewController implements Initializable {
 
     @FXML
     void onActionEliminar(ActionEvent event) {
-
+        eliminarUsuario();
     }
 
     @FXML
@@ -121,7 +121,63 @@ public class CrudUsuarioViewController implements Initializable {
 
     }
 
+    private void actualizarUsuario(){
+        String nombre=txtNombre.getText();
+        String identificacion=txtIdentificacion.getText();
+        String edad=txtEdad.getText();
+        String telefono=txtTelefono.getText();
+
+        TipoUsuario tipoSeleccionado = chTipoUsuario.getValue();
+        String tipoUsuarioStr = tipoSeleccionado != null ? tipoSeleccionado.name() : null;
+
+        boolean datosValidos = validarCamposActualizar(nombre, identificacion, edad, telefono, tipoSeleccionado);
+        if (datosValidos==true){
+            Usuario usuario=usuarioController.actualizarUsuario(nombre, identificacion, edad, telefono, tipoUsuarioStr);
+            if(usuario!=null){
+                mostrarMensaje("Notificación", "Actualización usuario", "Usuario actualizado",Alert.AlertType.CONFIRMATION);
+                tableUsuario.refresh();
+            } else {
+                mostrarMensaje("Notificación", "Actualización usuario", "Usuario no actualizado",Alert.AlertType.WARNING);
+            }
+        } else {
+            mostrarMensaje("Notificación", "Actualización usuario", "Campos vacios",Alert.AlertType.INFORMATION);
+        }
+
+    }
+    private void eliminarUsuario() {
+        String identificacion=txtIdentificacion.getText();
+        boolean datosValidos = validarCamposEliminar(identificacion);
+        if (datosValidos==true){
+        Usuario usuario=usuarioController.eliminarUsuario(identificacion);
+        if(usuario!=null){
+            mostrarMensaje("Notificación", "Eliminación usuario", "Usuario eliminado",Alert.AlertType.CONFIRMATION);
+            listaUsuarios.remove(usuario);
+        } else {
+            mostrarMensaje("Notificación", "Eliminación usuario", "Usuario no eliminado",Alert.AlertType.WARNING);
+        }
+    } else {
+        mostrarMensaje("Notificación", "Eliminación usuario", "Campos vacios",Alert.AlertType.INFORMATION);
+    }
+
+    }
+
+    private boolean validarCamposEliminar(String identificacion) {
+        if(identificacion.isEmpty()){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     private boolean validarCampos(String nombre, String identificacion, String edad, String telefono, TipoUsuario tipoSeleccionado) {
+        if (nombre.isEmpty() || identificacion.isEmpty() || edad.isEmpty() || telefono.isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private boolean validarCamposActualizar(String nombre, String identificacion, String edad, String telefono, TipoUsuario tipoSeleccionado) {
         if (nombre.isEmpty() || identificacion.isEmpty() || edad.isEmpty() || telefono.isEmpty()) {
             return false;
         } else {

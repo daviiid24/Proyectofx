@@ -144,21 +144,23 @@ public class CrudUsuarioViewController implements Initializable {
         }
 
     }
-    private void eliminarUsuario() {
+    private void eliminarUsuario(){
         String identificacion=txtIdentificacion.getText();
         boolean datosValidos = validarCamposEliminar(identificacion);
-        if (datosValidos==true){
-        Usuario usuario=usuarioController.eliminarUsuario(identificacion);
-        if(usuario!=null){
-            mostrarMensaje("Notificación", "Eliminación usuario", "Usuario eliminado",Alert.AlertType.CONFIRMATION);
-            listaUsuarios.remove(usuario);
-        } else {
-            mostrarMensaje("Notificación", "Eliminación usuario", "Usuario no eliminado",Alert.AlertType.WARNING);
+        if (!datosValidos) {
+            mostrarMensaje("Notificación", "Eliminación usuario", "Campos vacíos", Alert.AlertType.INFORMATION);
+            return;
         }
-    } else {
-        mostrarMensaje("Notificación", "Eliminación usuario", "Campos vacios",Alert.AlertType.INFORMATION);
-    }
+        Usuario usuarioEliminado = usuarioController.eliminarUsuario(identificacion);
+        if (usuarioEliminado != null) {
+            listaUsuarios.removeIf(usuario -> usuario.getIdentificacion().equalsIgnoreCase(identificacion));
+            tableUsuario.refresh();
 
+            mostrarMensaje("Notificación", "Eliminación usuario", "Usuario eliminado", Alert.AlertType.CONFIRMATION);
+            limpiarCampos();
+        } else {
+            mostrarMensaje("Notificación", "Eliminación usuario", "Usuario no encontrado", Alert.AlertType.WARNING);
+        }
     }
 
     private boolean validarCamposEliminar(String identificacion) {
@@ -243,5 +245,13 @@ public class CrudUsuarioViewController implements Initializable {
             return false;
         }
     }
-
+    private void limpiarCampos() {
+        txtNombre.clear();
+        txtIdentificacion.clear();
+        txtEdad.clear();
+        txtTelefono.clear();
+        chTipoUsuario.setValue(null);
+        usuarioSelecionado = null;
+        tableUsuario.getSelectionModel().clearSelection();
+    }
 }

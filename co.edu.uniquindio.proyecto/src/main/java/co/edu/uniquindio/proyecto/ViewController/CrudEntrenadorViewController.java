@@ -1,19 +1,13 @@
 package co.edu.uniquindio.proyecto.ViewController;
 
 import co.edu.uniquindio.proyecto.controller.EntrenadorController;
-import co.edu.uniquindio.proyecto.controller.UsuarioController;
 import co.edu.uniquindio.proyecto.model.Entrenador;
-import co.edu.uniquindio.proyecto.model.TipoUsuario;
-import co.edu.uniquindio.proyecto.model.Usuario;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class CrudEntrenadorViewController {
 
@@ -82,6 +76,12 @@ public class CrudEntrenadorViewController {
         initView();
     }
 
+    private void crearEntrenador() {
+        String nombre=txtNombre.getText();
+        String identificacion=txtIdentificacion.getText();
+        String edad=txtEdad.getText();
+        String telefono=txtTelefono.getText();
+
     private void actualizarEntrenador() {
 
     }
@@ -95,7 +95,7 @@ public class CrudEntrenadorViewController {
     }
 
     private void obtenerEntrenadores() {
-        listaEntrenadores.addAll(entrenadorController.obtenerUsuarios());
+        listaEntrenadores.addAll(entrenadorController.obtenerEntrenador());
     }
 
     private void initDataBinding() {
@@ -103,24 +103,24 @@ public class CrudEntrenadorViewController {
         tcIdentificacion.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdentificacion()));
         tcEdad.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getEdad())));
         tcTelefono.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTelefono()));
-        tcTipoUsuario.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getTipoUsuario())));
+        tcClasesAsignadas.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getClaseAsignadas()));
     }
 
 
     private void listenerSelection() {
-        tableUsuario.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            usuarioSelecionado = newSelection;
-            mostrarInformacion(usuarioSelecionado);
+        tableEntrenador.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            entrenadorSelecionado = newSelection;
+            mostrarInformacion(entrenadorSelecionado);
         });
     }
 
-    private void mostrarInformacion(Usuario usuarioSeleccionado) {
-        if(usuarioSeleccionado != null){
-            txtNombre.setText(usuarioSeleccionado.getNombre());
-            txtIdentificacion.setText(usuarioSeleccionado.getIdentificacion());
-            txtEdad.setText(String.valueOf(usuarioSeleccionado.getEdad()));
-            txtTelefono.setText(usuarioSeleccionado.getTelefono());
-            chTipoUsuario.setValue(usuarioSeleccionado.getTipoUsuario());
+    private void mostrarInformacion(Entrenador entrenadorSelecionado) {
+        if(entrenadorSelecionado != null){
+            txtNombre.setText(entrenadorSelecionado.getNombre());
+            txtIdentificacion.setText(entrenadorSelecionado.getIdentificacion());
+            txtEdad.setText(String.valueOf(entrenadorSelecionado.getEdad()));
+            txtTelefono.setText(entrenadorSelecionado.getTelefono());
+            tcClasesAsignadas.setText(entrenadorSelecionado.getClasesAsignadasTexto());
         }
     }
 

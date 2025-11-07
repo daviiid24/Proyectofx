@@ -4,9 +4,13 @@ import java.util.ArrayList;
 
 public class Entrenador extends Persona {
     private ArrayList<Clase> claseAsignadas =new ArrayList();
+    private String clasesAsignadasTexto;
     private Gimnasio ownedByGimnasio;
 
     public Entrenador() {
+    }
+    public Entrenador(ArrayList<Clase> claseAsignadas) {
+        actualizarClasesAsignadasTexto();
     }
 
     public ArrayList<Clase> getClasesAsignadas() {
@@ -31,6 +35,28 @@ public class Entrenador extends Persona {
 
     public void setOwnedByGimnasio(Gimnasio ownedByGimnasio) {
         this.ownedByGimnasio = ownedByGimnasio;
+    }
+
+    public String getClasesAsignadasTexto() {
+        return clasesAsignadasTexto;
+    }
+
+    public void setClasesAsignadasTexto(String clasesAsignadasTexto) {
+        this.clasesAsignadasTexto = clasesAsignadasTexto;
+    }
+    public void actualizarClasesAsignadasTexto() {
+        if (claseAsignadas == null || claseAsignadas.isEmpty()) {
+            clasesAsignadasTexto = "Sin clases";
+        } else {
+            String texto = "";
+            for (int i = 0; i < claseAsignadas.size(); i++) {
+                texto += claseAsignadas.get(i);
+                if (i < claseAsignadas.size() - 1) {
+                    texto += ", ";
+                }
+            }
+            clasesAsignadasTexto = texto;
+        }
     }
 
     @Override

@@ -107,7 +107,7 @@ public class CrudUsuarioViewController implements Initializable {
 
         boolean datosValidos = validarCampos(nombre, identificacion, edad, telefono, tipoSeleccionado);
 
-        if (datosValidos==true){
+        if (datosValidos){
             Usuario usuario=usuarioController.crearUsuario(nombre, identificacion, edad, telefono, tipoUsuarioStr);
             if(usuario!=null){
                 mostrarMensaje("Notificación", "Creación usuario", "Usuario creado",Alert.AlertType.CONFIRMATION);
@@ -131,7 +131,7 @@ public class CrudUsuarioViewController implements Initializable {
         String tipoUsuarioStr = tipoSeleccionado != null ? tipoSeleccionado.name() : null;
 
         boolean datosValidos = validarCamposActualizar(nombre, identificacion, edad, telefono, tipoSeleccionado);
-        if (datosValidos==true){
+        if (datosValidos){
             Usuario usuario=usuarioController.actualizarUsuario(nombre, identificacion, edad, telefono, tipoUsuarioStr);
             if(usuario!=null){
                 mostrarMensaje("Notificación", "Actualización usuario", "Usuario actualizado",Alert.AlertType.CONFIRMATION);
@@ -164,27 +164,15 @@ public class CrudUsuarioViewController implements Initializable {
     }
 
     private boolean validarCamposEliminar(String identificacion) {
-        if(identificacion.isEmpty()){
-            return false;
-        } else {
-            return true;
-        }
+        return !identificacion.isEmpty();
     }
 
     private boolean validarCampos(String nombre, String identificacion, String edad, String telefono, TipoUsuario tipoSeleccionado) {
-        if (nombre.isEmpty() || identificacion.isEmpty() || edad.isEmpty() || telefono.isEmpty()) {
-            return false;
-        } else {
-            return true;
-        }
+        return !nombre.isEmpty() && !identificacion.isEmpty() && !edad.isEmpty() && !telefono.isEmpty();
     }
 
     private boolean validarCamposActualizar(String nombre, String identificacion, String edad, String telefono, TipoUsuario tipoSeleccionado) {
-        if (nombre.isEmpty() || identificacion.isEmpty() || edad.isEmpty() || telefono.isEmpty()) {
-            return false;
-        } else {
-            return true;
-        }
+        return !nombre.isEmpty() && !identificacion.isEmpty() && !edad.isEmpty() && !telefono.isEmpty();
     }
 
     private void initView() {
@@ -239,11 +227,7 @@ public class CrudUsuarioViewController implements Initializable {
         alert.setTitle("Confirmación");
         alert.setContentText(mensaje);
         Optional<ButtonType> action = alert.showAndWait();
-        if (action.get() == ButtonType.OK) {
-            return true;
-        } else {
-            return false;
-        }
+        return action.get() == ButtonType.OK;
     }
     private void limpiarCampos() {
         txtNombre.clear();

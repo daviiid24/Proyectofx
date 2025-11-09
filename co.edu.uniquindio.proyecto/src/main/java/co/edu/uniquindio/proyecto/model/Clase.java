@@ -35,14 +35,6 @@ public class Clase {
         this.tipoClase = tipoClase;
     }
 
-    public String getHorario() {
-        return horario;
-    }
-
-    public void setHorario(String horario) {
-        this.horario = horario;
-    }
-
     public int getCupoMaximo() {
         return cupoMaximo;
     }
@@ -63,6 +55,13 @@ public class Clase {
         return listaUsuariosRegistrados.size();
     }
 
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
 
     public ArrayList<Usuario> getListaUsuariosRegistrados() {
         return listaUsuariosRegistrados;

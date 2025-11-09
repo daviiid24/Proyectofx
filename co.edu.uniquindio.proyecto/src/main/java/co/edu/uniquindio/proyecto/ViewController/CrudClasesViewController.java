@@ -187,19 +187,11 @@ public class CrudClasesViewController {
         }
     }
     private boolean validarCamposEliminar(String nombre) {
-        if(nombre.isEmpty()){
-            return false;
-        } else {
-            return true;
-        }
+        return !nombre.isEmpty();
     }
 
     private boolean validarCampos(String nombre, String horario, String cupoMaximo, TipoClase tipo, String idEntrenador) {
-        if (nombre.isEmpty() || horario.isEmpty() || cupoMaximo.isEmpty() || tipo == null || idEntrenador == null) {
-            return false;
-        } else {
-            return true;
-        }
+        return !nombre.isEmpty() && !horario.isEmpty() && !cupoMaximo.isEmpty() && tipo != null && idEntrenador != null;
     }
     private void limpiarCampos() {
         txtNombre.clear();

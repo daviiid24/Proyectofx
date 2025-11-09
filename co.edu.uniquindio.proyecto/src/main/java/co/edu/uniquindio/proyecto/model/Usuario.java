@@ -8,7 +8,7 @@ public class Usuario extends Persona {
     private TipoUsuario tipoUsuario;
     private Membresia membresia;
     private ArrayList<Reserva> reservas=new ArrayList();
-    private ArrayList<Asistencia> asistencias = new ArrayList<>();
+    private final ArrayList<Asistencia> asistencias = new ArrayList<>();
     private Gimnasio ownedByGimnasio;
 
     public Usuario() {}

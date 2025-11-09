@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ModelFactory {
     private static ModelFactory modelFactory;
-    private Gimnasio gimnasio;
+    private final Gimnasio gimnasio;
 
     public static ModelFactory getInstancia() {
         if(modelFactory == null) {
@@ -55,11 +55,11 @@ public class ModelFactory {
     }
 
     public Clase crearClase(String nombre, String horario, String cupoMaximo, String TipoClaseTexto, String idEntrenador) {
-        return gimnasio.crearClase(nombre, horario, Integer.parseInt(cupoMaximo), TipoClase.valueOf(TipoClaseTexto), idEntrenador);
+        return gimnasio.crearClase(nombre, Integer.parseInt(cupoMaximo), idEntrenador, TipoClase.valueOf(TipoClaseTexto), horario);
     }
 
     public Clase actualizarClase(String nombre, String horario, String cupoMaximo, String TipoClaseTexto, String idEntrenador) {
-        return gimnasio.actualizarClase(nombre, horario, Integer.parseInt(cupoMaximo), TipoClase.valueOf(TipoClaseTexto), idEntrenador);
+        return gimnasio.actualizarClase(nombre, Integer.parseInt(cupoMaximo), idEntrenador, TipoClase.valueOf(TipoClaseTexto), horario);
     }
 
     public Clase eliminarClase(String nombre) {

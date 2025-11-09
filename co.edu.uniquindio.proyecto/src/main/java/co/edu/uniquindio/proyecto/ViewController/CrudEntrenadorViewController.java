@@ -85,7 +85,7 @@ public class CrudEntrenadorViewController {
         String telefono = txtTelefono.getText();
 
         boolean datosValidos = validarCampos(nombre, identificacion, edad, telefono);
-        if (datosValidos==true){
+        if (datosValidos){
             Entrenador entrenador=entrenadorController.crearEntrenador(nombre,
                     identificacion,
                     edad,
@@ -109,7 +109,7 @@ public class CrudEntrenadorViewController {
 
 
         boolean datosValidos = validarCamposActualizar(nombre, identificacion, edad, telefono);
-        if (datosValidos==true){
+        if (datosValidos){
             Entrenador entrenador =entrenadorController.actualizarEntrenador(nombre, identificacion, edad, telefono);
             if(entrenador !=null){
                 mostrarMensaje("Notificación", "Actualización entrenador", "Entrenador actualizado",Alert.AlertType.CONFIRMATION);
@@ -142,27 +142,15 @@ public class CrudEntrenadorViewController {
     }
 
     private boolean validarCamposEliminar(String identificacion) {
-        if(identificacion.isEmpty()){
-            return false;
-        } else {
-            return true;
-        }
+        return !identificacion.isEmpty();
     }
 
     private boolean validarCampos(String nombre, String identificacion, String edad, String telefono) {
-        if (nombre.isEmpty() || identificacion.isEmpty() || edad.isEmpty() || telefono.isEmpty()) {
-            return false;
-        } else {
-            return true;
-        }
+        return !nombre.isEmpty() && !identificacion.isEmpty() && !edad.isEmpty() && !telefono.isEmpty();
     }
 
     private boolean validarCamposActualizar(String nombre, String identificacion, String edad, String telefono) {
-        if (nombre.isEmpty() || identificacion.isEmpty() || edad.isEmpty() || telefono.isEmpty()) {
-            return false;
-        } else {
-            return true;
-        }
+        return !nombre.isEmpty() && !identificacion.isEmpty() && !edad.isEmpty() && !telefono.isEmpty();
     }
 
     private void initView() {

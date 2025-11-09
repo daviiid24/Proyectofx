@@ -362,7 +362,7 @@ public class Gimnasio {
     }
 
     //CRUD ENTRENADOR
-    public boolean crearEntrenador(String nombre, String identificacion, int edad,
+    public Entrenador crearEntrenador(String nombre, String identificacion, int edad,
                                 String telefono) {
         Entrenador entrenadorEncontrado = obtenerEntrenador(identificacion);
         if (entrenadorEncontrado == null) {
@@ -373,23 +373,23 @@ public class Gimnasio {
             entrenador.setTelefono(telefono);
             getListaEntrenadores().add(entrenador);
 
-            return true;
+            return entrenador;
         } else {
-            return false;
+            return null;
         }
     }
 
-    public boolean eliminarEntrenador(String idEliminar) {
+    public Entrenador eliminarEntrenador(String idEliminar) {
         Entrenador entrenadorEncontrado = obtenerEntrenador(idEliminar);
         if (entrenadorEncontrado != null) {
             getListaEntrenadores().remove(entrenadorEncontrado);
-            return true;
+            return entrenadorEncontrado;
         } else {
-            return false;
+            return null;
         }
     }
 
-    public boolean actualizarEntrenador(String nombre, String identificacion, int edad,
+    public Entrenador actualizarEntrenador(String nombre, String identificacion, int edad,
                                      String telefono) {
         Entrenador entrenadorEncontrado = obtenerEntrenador(identificacion);
         if (entrenadorEncontrado.getIdentificacion().equalsIgnoreCase(identificacion)) {
@@ -398,9 +398,9 @@ public class Gimnasio {
             entrenadorEncontrado.setEdad(edad);
             entrenadorEncontrado.setTelefono(telefono);
 
-            return true;
+            return entrenadorEncontrado;
         } else {
-            return false;
+            return null;
         }
     }
 

@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyecto.factory;
 
+import co.edu.uniquindio.proyecto.model.Entrenador;
 import co.edu.uniquindio.proyecto.model.Gimnasio;
 import co.edu.uniquindio.proyecto.model.TipoUsuario;
 import co.edu.uniquindio.proyecto.model.Usuario;
@@ -35,5 +36,21 @@ public class ModelFactory {
 
     public Usuario eliminarUsuario(String identificacion) {
         return gimnasio.eliminarUsuario(identificacion);
+    }
+
+    public List<Entrenador> obtenerEntrenadores() {
+        return gimnasio.getListaEntrenadores();
+    }
+
+    public Entrenador crearEntrenador(String nombre, String identificacion, String edad, String telefono) {
+        return gimnasio.crearEntrenador(nombre, identificacion, Integer.parseInt(edad), telefono);
+    }
+
+    public Entrenador actualizarEntrenador(String nombre, String identificacion, String edad, String telefono) {
+        return gimnasio.actualizarEntrenador(nombre, identificacion, Integer.parseInt(edad), telefono);
+    }
+
+    public Entrenador eliminarEntrenador(String identificacion) {
+        return gimnasio.eliminarEntrenador(identificacion);
     }
 }

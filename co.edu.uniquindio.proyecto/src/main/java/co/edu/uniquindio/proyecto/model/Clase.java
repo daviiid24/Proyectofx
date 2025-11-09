@@ -4,16 +4,20 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Clase {
-        private String nombre;
-        private TipoClase tipoClase;
-        private LocalTime horario;
-        private int cupoMaximo;
-        private Entrenador entrenador;
-        private ArrayList<Usuario> listaUsuariosRegistrados =new ArrayList();
+    private String nombre;
+    private TipoClase tipoClase;
+    private String horario;
+    private int cupoMaximo;
+    private Entrenador entrenador;
+    private ArrayList<Usuario> listaUsuariosRegistrados =new ArrayList();
+    private String usuariosRegistradosTexto;
     private Gimnasio ownedByGimnasio;
 
-        public Clase() {
-        }
+    public Clase() {
+    }
+    public Clase(ArrayList<Usuario> listaUsuariosRegistrados) {
+        actualizarUsuariosRegistradosTexto();
+    }
 
     public String getNombre() {
         return nombre;
@@ -31,11 +35,11 @@ public class Clase {
         this.tipoClase = tipoClase;
     }
 
-    public LocalTime getHorario() {
+    public String getHorario() {
         return horario;
     }
 
-    public void setHorario(LocalTime horario) {
+    public void setHorario(String horario) {
         this.horario = horario;
     }
 
@@ -74,5 +78,27 @@ public class Clase {
 
     public void setOwnedByGimnasio(Gimnasio ownedByGimnasio) {
         this.ownedByGimnasio = ownedByGimnasio;
+    }
+
+    public String getUsuariosRegistradosTexto() {
+        return usuariosRegistradosTexto;
+    }
+
+    public void setUsuariosRegistradosTexto(String usuariosRegistradosTexto) {
+        this.usuariosRegistradosTexto = usuariosRegistradosTexto;
+    }
+    public void actualizarUsuariosRegistradosTexto() {
+        if (listaUsuariosRegistrados == null || listaUsuariosRegistrados.isEmpty()) {
+            usuariosRegistradosTexto = "Sin usuarios registrados";
+        } else {
+            String texto = "";
+            for (int i = 0; i < listaUsuariosRegistrados.size(); i++) {
+                texto += listaUsuariosRegistrados.get(i);
+                if (i < listaUsuariosRegistrados.size() - 1) {
+                    texto += ", ";
+                }
+            }
+            usuariosRegistradosTexto = texto;
+        }
     }
 }

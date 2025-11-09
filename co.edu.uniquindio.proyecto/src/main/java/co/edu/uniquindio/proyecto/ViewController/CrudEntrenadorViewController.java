@@ -182,7 +182,7 @@ public class CrudEntrenadorViewController {
         tcIdentificacion.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdentificacion()));
         tcEdad.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getEdad())));
         tcTelefono.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTelefono()));
-        tcClasesAsignadas.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getClaseAsignadas())));
+        tcClasesAsignadas.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getClasesAsignadasTexto())));
     }
 
 
@@ -199,7 +199,6 @@ public class CrudEntrenadorViewController {
             txtIdentificacion.setText(entrenadorSelecionado.getIdentificacion());
             txtEdad.setText(String.valueOf(entrenadorSelecionado.getEdad()));
             txtTelefono.setText(entrenadorSelecionado.getTelefono());
-            tcClasesAsignadas.setText(entrenadorSelecionado.getClasesAsignadasTexto());
         }
     }
 

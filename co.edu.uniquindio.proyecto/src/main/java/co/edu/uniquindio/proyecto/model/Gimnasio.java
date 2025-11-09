@@ -417,16 +417,16 @@ public class Gimnasio {
     }
 
     //CRUD CLASE
-    public boolean agregarClase(String nombre,
-                                 int cupoMaximo,
-                                String identificacion,
-                                TipoClase tipoClase, int hora, int minuto) {
+    public Clase crearClase(String nombre,
+                              int cupoMaximo,
+                              String identificacion,
+                              TipoClase tipoClase, String horario) {
         Clase claseEncontrada = obtenerClase(nombre);
         if (claseEncontrada == null) {
             Clase clase = new Clase();
             clase.setNombre(nombre);
             clase.setCupoMaximo(cupoMaximo);
-            clase.setHorario(LocalTime.of(hora, minuto));
+            clase.setHorario(horario);
             clase.setTipoClase(tipoClase);
             Entrenador entrenadorEncontrado=obtenerEntrenador(identificacion);
             clase.setEntrenador(entrenadorEncontrado);
@@ -435,38 +435,38 @@ public class Gimnasio {
                 entrenadorEncontrado.getClaseAsignadas().add(clase);
             }
 
-            return true;
+            return clase;
         } else {
-            return false;
+            return null;
         }
     }
 
-    public boolean eliminarClase(String nombre) {
+    public Clase eliminarClase(String nombre) {
         Clase claseEncontrada = obtenerClase(nombre);
         if (claseEncontrada != null) {
             getListaClases().remove(claseEncontrada);
-            return true;
+            return claseEncontrada;
         } else {
-            return false;
+            return null;
         }
     }
 
-    public boolean actualizarClase(String nombre,
-                                   int cupoMaximo,
-                                   String identificacion,
-                                   TipoClase tipoClase, int hora, int minuto) {
+    public Clase actualizarClase(String nombre,
+                                 int cupoMaximo,
+                                 String identificacion,
+                                 TipoClase tipoClase, String horario) {
         Clase claseEncontrada = obtenerClase(nombre);
         if (claseEncontrada.getNombre().equalsIgnoreCase(nombre)) {
             claseEncontrada.setNombre(nombre);
             claseEncontrada.setCupoMaximo(cupoMaximo);
-            claseEncontrada.setHorario(LocalTime.of(hora, minuto));
+            claseEncontrada.setHorario(horario);
             claseEncontrada.setTipoClase(tipoClase);
             Entrenador entrenadorEncontrado=obtenerEntrenador(identificacion);
             claseEncontrada.setEntrenador(entrenadorEncontrado);
 
-            return true;
+            return claseEncontrada;
         } else {
-            return false;
+            return null;
         }
     }
 

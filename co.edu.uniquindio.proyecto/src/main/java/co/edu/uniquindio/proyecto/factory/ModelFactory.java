@@ -1,9 +1,6 @@
 package co.edu.uniquindio.proyecto.factory;
 
-import co.edu.uniquindio.proyecto.model.Entrenador;
-import co.edu.uniquindio.proyecto.model.Gimnasio;
-import co.edu.uniquindio.proyecto.model.TipoUsuario;
-import co.edu.uniquindio.proyecto.model.Usuario;
+import co.edu.uniquindio.proyecto.model.*;
 import co.edu.uniquindio.proyecto.utils.DataUtil;
 
 import java.util.List;
@@ -53,4 +50,20 @@ public class ModelFactory {
     public Entrenador eliminarEntrenador(String identificacion) {
         return gimnasio.eliminarEntrenador(identificacion);
     }
+    public List<Clase> obtenerClases() {
+        return gimnasio.getListaClases();
+    }
+
+    public Clase crearClase(String nombre, String horario, String cupoMaximo, String TipoClaseTexto, String idEntrenador) {
+        return gimnasio.crearClase(nombre, horario, Integer.parseInt(cupoMaximo), TipoClase.valueOf(TipoClaseTexto), idEntrenador);
+    }
+
+    public Clase actualizarClase(String nombre, String horario, String cupoMaximo, String TipoClaseTexto, String idEntrenador) {
+        return gimnasio.actualizarClase(nombre, horario, Integer.parseInt(cupoMaximo), TipoClase.valueOf(TipoClaseTexto), idEntrenador);
+    }
+
+    public Clase eliminarClase(String nombre) {
+        return gimnasio.eliminarClase(nombre);
+    }
+
 }

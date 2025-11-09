@@ -1,8 +1,9 @@
 package co.edu.uniquindio.proyecto.utils;
 
-import co.edu.uniquindio.proyecto.model.Gimnasio;
-import co.edu.uniquindio.proyecto.model.TipoUsuario;
-import co.edu.uniquindio.proyecto.model.Usuario;
+import co.edu.uniquindio.proyecto.model.*;
+
+import java.util.ArrayList;
+
 
 public class DataUtil {
 
@@ -24,6 +25,31 @@ public class DataUtil {
 
             gimnasio.getListaUsuarios().add(usuario1);
             gimnasio.getListaUsuarios().add(usuario2);
+
+        Entrenador entrenador1 = new Entrenador();
+        entrenador1.setNombre("Andrés López");
+        entrenador1.setEdad(35);
+        entrenador1.setIdentificacion("2001");
+        entrenador1.setTelefono("3209876543");
+        entrenador1.setOwnedByGimnasio(gimnasio);
+
+        ArrayList<Clase> clasesEntrenador1 = new ArrayList<>();
+        entrenador1.setClaseAsignadas(clasesEntrenador1);
+
+        Entrenador entrenador2 = new Entrenador();
+        entrenador2.setNombre("María Fernández");
+        entrenador2.setEdad(29);
+        entrenador2.setIdentificacion("2002");
+        entrenador2.setTelefono("3004567890");
+        entrenador2.setOwnedByGimnasio(gimnasio);
+
+        ArrayList<Clase> clasesEntrenador2 = new ArrayList<>();
+        entrenador2.setClaseAsignadas(clasesEntrenador2);
+
+        gimnasio.getListaEntrenadores().add(entrenador1);
+        gimnasio.getListaEntrenadores().add(entrenador2);
+
+
 
             return gimnasio;
         }

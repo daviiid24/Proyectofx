@@ -195,7 +195,6 @@ public class CrudUsuarioViewController implements Initializable {
         tcTipoUsuario.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getTipoUsuario())));
     }
 
-
     private void listenerSelection() {
         tableUsuario.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             usuarioSelecionado = newSelection;

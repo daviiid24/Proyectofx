@@ -422,16 +422,23 @@ public class Gimnasio {
                               String identificacion,
                               TipoClase tipoClase, String horario) {
         Clase claseEncontrada = obtenerClase(nombre);
+
+        Entrenador entrenadorEncontrado = obtenerEntrenador(identificacion);
+        if (entrenadorEncontrado == null) {
+            return null;
+        }
+
         if (claseEncontrada == null) {
             Clase clase = new Clase();
+
+
             clase.setNombre(nombre);
             clase.setCupoMaximo(cupoMaximo);
             clase.setHorario(horario);
             clase.setTipoClase(tipoClase);
-            Entrenador entrenadorEncontrado=obtenerEntrenador(identificacion);
             clase.setEntrenador(entrenadorEncontrado);
             getListaClases().add(clase);
-            if (entrenadorEncontrado != null && !entrenadorEncontrado.getClaseAsignadas().contains(clase)) {
+            if (!entrenadorEncontrado.getClaseAsignadas().contains(clase)) {
                 entrenadorEncontrado.getClaseAsignadas().add(clase);
             }
 
@@ -455,13 +462,18 @@ public class Gimnasio {
                                  int cupoMaximo,
                                  String identificacion,
                                  TipoClase tipoClase, String horario) {
+
+        Entrenador entrenadorEncontrado = obtenerEntrenador(identificacion);
+        if (entrenadorEncontrado == null) {
+            return null;
+        }
+
         Clase claseEncontrada = obtenerClase(nombre);
         if (claseEncontrada.getNombre().equalsIgnoreCase(nombre)) {
             claseEncontrada.setNombre(nombre);
             claseEncontrada.setCupoMaximo(cupoMaximo);
             claseEncontrada.setHorario(horario);
             claseEncontrada.setTipoClase(tipoClase);
-            Entrenador entrenadorEncontrado=obtenerEntrenador(identificacion);
             claseEncontrada.setEntrenador(entrenadorEncontrado);
 
             return claseEncontrada;

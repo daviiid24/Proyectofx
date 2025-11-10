@@ -13,7 +13,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <SplitPane layoutX="14.0" layoutY="7.0" orientation="VERTICAL" prefHeight="621.0" prefWidth="931.0">
+                                <SplitPane layoutX="18.0" layoutY="12.0" orientation="VERTICAL" prefHeight="618.0" prefWidth="927.0">
                                     <items>
                                         <fx:include source="CrudUsuarioView.fxml" />
                                     </items>
@@ -37,9 +37,9 @@
                 </Tab>
             <Tab text="Crud Clases">
                 <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="618.0" prefWidth="927.0">
                         <children>
-                            <SplitPane layoutX="14.0" layoutY="7.0" orientation="VERTICAL" prefHeight="621.0" prefWidth="931.0">
+                            <SplitPane layoutX="-14.0" orientation="VERTICAL" prefHeight="624.0" prefWidth="821.0">
                                 <items>
                                     <fx:include source="CrudClasesView.fxml" />
                                 </items>

@@ -6,13 +6,14 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CrudClasesViewController {
+public class CrudClasesViewController implements Initializable {
 
     ClasesController clasesController;
     ObservableList<Clase> listaClases=FXCollections.observableArrayList();
@@ -79,34 +80,19 @@ public class CrudClasesViewController {
     void onActionEliminar(ActionEvent event) {
         eliminarClase();
     }
+
+    @FXML
     public void initialize(URL location, ResourceBundle resources) {
-        ObservableList<TipoClase> tipo = FXCollections.observableArrayList(TipoClase.values());
-        chTipoClase.setItems(tipo);
+        ObservableList<TipoClase> tipos = FXCollections.observableArrayList(TipoClase.values());
+        chTipoClase.setItems(tipos);
         chTipoClase.setValue(null);
 
         clasesController = new ClasesController();
         initView();
     }
-    private void initView() {
-        initDataBinding();
-        obtenerClases();
-        tableClases.getItems().clear();
-        tableClases.setItems(listaClases);
-        listenerSelection();
-    }
-    private void initDataBinding() {
-        tcNombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
-        tcHorario.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getHorario()));
-        tcCupoMaximo.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getCupoMaximo())));
-        tcTipoClase.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getTipoClase())));
-        tcEntrenador.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEntrenador().getNombre()));
-        tcUsuariosRegistrados.setCellValueFactory(cellData -> new SimpleStringProperty(
-                String.valueOf(cellData.getValue().getListaUsuariosRegistrados() != null ? cellData.getValue().getListaUsuariosRegistrados().size() : 0))
-        );
-    }
-    private void obtenerClases() {
-        listaClases.addAll(clasesController.obtenerClases());
-    }
+
+
+
     private void crearClase() {
         String nombre = txtNombre.getText();
         String horario = txtHorario.getText();
@@ -171,10 +157,49 @@ public class CrudClasesViewController {
             mostrarMensaje("Notificación", "Eliminación clase", "Clase no encontrada", Alert.AlertType.WARNING);
         }
     }
+
+    private boolean validarCamposEliminar(String nombre) {
+        return !nombre.isEmpty();
+    }
+
+    private boolean validarCampos(String nombre, String horario, String cupoMaximo, TipoClase tipo, String idEntrenador) {
+        return !nombre.isEmpty() && !horario.isEmpty() && !cupoMaximo.isEmpty() && tipo != null && idEntrenador != null;
+    }
+
+    private void initView() {
+        initDataBinding();
+        obtenerClases();
+        tableClases.getItems().clear();
+        tableClases.setItems(listaClases);
+        listenerSelection();
+    }
+
+    private void obtenerClases() {
+        listaClases.addAll(clasesController.obtenerClases());
+    }
+
+    private void initDataBinding() {
+        tcNombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
+        tcHorario.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getHorario()));
+        tcCupoMaximo.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getCupoMaximo())));
+        tcTipoClase.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getTipoClase())));
+        tcEntrenador.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEntrenador().getNombre()));
+        tcUsuariosRegistrados.setCellValueFactory(cellData -> new SimpleStringProperty(
+                String.valueOf(cellData.getValue().getListaUsuariosRegistrados() != null ? cellData.getValue().getListaUsuariosRegistrados().size() : 0))
+        );
+    }
+
     private void listenerSelection() {
         tableClases.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             claseSelecionada = newSelection;
             mostrarInformacion(claseSelecionada);
+
+            if (claseSelecionada != null) {
+                int cantidad = claseSelecionada.getListaUsuariosRegistrados().size();
+                lblUsuariosRegistrados.setText(String.valueOf(cantidad));
+            } else {
+                lblUsuariosRegistrados.setText("Usuarios registrados: 0");
+            }
         });
     }
     private void mostrarInformacion(Clase claseSeleccionada) {
@@ -186,12 +211,13 @@ public class CrudClasesViewController {
             chTipoClase.setValue(claseSeleccionada.getTipoClase());
         }
     }
-    private boolean validarCamposEliminar(String nombre) {
-        return !nombre.isEmpty();
-    }
 
-    private boolean validarCampos(String nombre, String horario, String cupoMaximo, TipoClase tipo, String idEntrenador) {
-        return !nombre.isEmpty() && !horario.isEmpty() && !cupoMaximo.isEmpty() && tipo != null && idEntrenador != null;
+    private void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(titulo);
+        alert.setHeaderText(header);
+        alert.setContentText(contenido);
+        alert.showAndWait();
     }
     private void limpiarCampos() {
         txtNombre.clear();
@@ -201,12 +227,5 @@ public class CrudClasesViewController {
         chTipoClase.setValue(null);
         claseSelecionada = null;
         tableClases.getSelectionModel().clearSelection();
-    }
-    private void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertType) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(titulo);
-        alert.setHeaderText(header);
-        alert.setContentText(contenido);
-        alert.showAndWait();
     }
 }

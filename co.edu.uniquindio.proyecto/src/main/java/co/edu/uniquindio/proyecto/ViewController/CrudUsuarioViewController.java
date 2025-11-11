@@ -144,6 +144,7 @@ public class CrudUsuarioViewController implements Initializable {
         }
 
     }
+
     private void eliminarUsuario(){
         String identificacion=txtIdentificacion.getText();
         boolean datosValidos = validarCamposEliminar(identificacion);

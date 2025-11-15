@@ -66,4 +66,24 @@ public class ModelFactory {
         return gimnasio.eliminarClase(nombre);
     }
 
+    public List<Reserva> obtenerReservas() {
+        return gimnasio.getListaReservas();
+    }
+
+    public Reserva crearReserva(String idReserva, String idUsuario, String nombreClase) {
+        return gimnasio.crearReserva(idReserva, idUsuario, nombreClase);
+    }
+
+    public Reserva actualizarReserva(String idReserva, String idUsuario, String nombreClase) {
+        return gimnasio.actualizarReserva(idReserva, idUsuario, nombreClase);
+    }
+
+    public Reserva eliminarReserva(String idReserva) {
+        return gimnasio.eliminarReserva(idReserva);
+    }
+
+    public String validarUsuario(String idUsuario) {
+        return gimnasio.validarUsuario(idUsuario);
+    }
+
 }

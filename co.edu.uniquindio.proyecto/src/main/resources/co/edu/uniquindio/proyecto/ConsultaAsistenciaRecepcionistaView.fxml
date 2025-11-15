@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="500" prefWidth="700" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.proyecto.ViewController.AsistenciaRecepcionistaViewController">
+
+    <children>
+        <VBox spacing="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
+
+            <!-- TÍTULO -->
+            <Label style="-fx-font-size: 22px; -fx-font-weight: bold;" text="Validación de Asistencia" />
+
+            <!-- CAMPO PARA VALIDAR ASISTENCIA -->
+            <HBox spacing="10">
+                <children>
+                    <Label text="ID Usuario:" />
+                    <TextField fx:id="txtIdUsuario" onAction="#onActionValidar" prefWidth="200" />
+                    <Button fx:id="btnValidar" onAction="#onActionValidar" text="Validar" />
+                </children>
+            </HBox>
+
+            <!-- RESULTADO -->
+            <VBox spacing="5">
+                <children>
+                    <Label text="Resultado:" />
+                    <TextArea fx:id="txtResultado" prefHeight="250" />
+                </children>
+            </VBox>
+
+        </VBox>
+    </children>
+
+</AnchorPane>

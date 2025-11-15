@@ -118,25 +118,28 @@ public class Gimnasio {
         }
     }
 
-    public boolean validarUsuario(String idUsuario) {
+    public String validarUsuario(String idUsuario) {
         Usuario usuarioEncontrado = obtenerUsuario(idUsuario);
+
         if (usuarioEncontrado == null) {
-            return false;
+            return "El usuario no existe.";
         }
+
         Membresia membresia = usuarioEncontrado.getMembresia();
         if (membresia == null) {
-            System.out.println("El usuario no tiene una membresía asignada.");
-            return false;
+            return "El usuario no tiene una membresía asignada.";
         }
+
         if (membresia.getFechaVencimiento().isBefore(LocalDate.now()) ||
                 membresia.getEstado() == Estado.INACTIVA) {
-            System.out.println("La membresía del usuario está vencida o inactiva.");
-            return false;
+            return "La membresía del usuario está vencida o inactiva.";
         }
+
         usuarioEncontrado.registrarAsistencia(
                 new Asistencia(LocalDate.now(), "Ingreso al gimnasio validado")
         );
-        return true;
+
+        return "Ingreso al gimnasio validado.";
     }
 
     public void generarReporte(int opcion) {
@@ -571,18 +574,18 @@ public class Gimnasio {
         return membresiaEncontrada;
     }
     //CRUD RESERVA
-    public boolean reservarClase(String idReserva, String idUsuario, String nombreClase) {
+    public Reserva crearReserva(String idReserva, String idUsuario, String nombreClase) {
         Reserva reservaEncontrada=obtenerReserva(idReserva);
         if (reservaEncontrada == null) {
         Usuario usuario = obtenerUsuario(idUsuario);
         Clase clase = obtenerClase(nombreClase);
 
         if (usuario == null || clase == null) {
-            return false;
+            return null;
         }
         if (clase.getListaUsuariosRegistrados().size() >= clase.getCupoMaximo()) {
             System.out.println("No hay cupos para esta clase.");
-            return false;
+            return null;
         }
             Reserva reserva=new Reserva();
             reserva.setIdReserva(idReserva);
@@ -594,12 +597,12 @@ public class Gimnasio {
 
             clase.getListaUsuariosRegistrados().add(usuario);
 
-            return true;
+            return reserva;
         } else {
-            return false;
+            return null;
         }
     }
-    public boolean eliminarReserva(String idReserva) {
+    public Reserva eliminarReserva(String idReserva) {
         Reserva reservaEncontrada = obtenerReserva(idReserva);
         if (reservaEncontrada != null) {
         Clase clase = reservaEncontrada.getClase();
@@ -608,12 +611,12 @@ public class Gimnasio {
             clase.getListaUsuariosRegistrados().remove(usuario);
         }
             getListaReservas().remove(reservaEncontrada);
-            return true;
+            return reservaEncontrada;
         } else {
-            return false;
+            return null;
         }
     }
-    public boolean actualizarReserva(String idReserva, String idUsuario, String nombreClase) {
+    public Reserva actualizarReserva(String idReserva, String idUsuario, String nombreClase) {
         Reserva reservaEncontrada=obtenerReserva(idReserva);
         if (reservaEncontrada != null) {
             Clase claseAnterior = reservaEncontrada.getClase();
@@ -624,7 +627,7 @@ public class Gimnasio {
             Usuario nuevoUsuario = obtenerUsuario(idUsuario);
             Clase nuevaClase = obtenerClase(nombreClase);
             if (nuevoUsuario == null || nuevaClase == null) {
-                return false;
+                return null;
             }
             reservaEncontrada.setIdReserva(idReserva);
             reservaEncontrada.setUsuario(nuevoUsuario);
@@ -634,9 +637,9 @@ public class Gimnasio {
 
             nuevaClase.getListaUsuariosRegistrados().add(nuevoUsuario);
 
-            return true;
+            return reservaEncontrada;
         } else {
-            return false;
+            return null;
         }
     }
     public Reserva obtenerReserva(String idReserva) {

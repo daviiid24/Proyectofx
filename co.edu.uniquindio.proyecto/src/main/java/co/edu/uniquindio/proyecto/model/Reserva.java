@@ -3,7 +3,7 @@ package co.edu.uniquindio.proyecto.model;
 import java.time.LocalDate;
 
 public class Reserva {
-    private  String idReserva;
+    private String idReserva;
     private Usuario usuario;
     private Clase clase;
     private LocalDate fechaReserva;

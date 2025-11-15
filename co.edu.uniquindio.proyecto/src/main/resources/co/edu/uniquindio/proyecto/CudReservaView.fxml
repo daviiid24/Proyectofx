@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="572.0" prefWidth="773.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.proyecto.ViewController.CrudReservaViewController">
+
+    <children>
+        <SplitPane dividerPositions="0.3851102941176471" layoutX="14.0" layoutY="14.0" orientation="VERTICAL" prefHeight="546.0" prefWidth="747.0">
+
+            <items>
+
+                <!-- ZONA DE FORMULARIO -->
+                <AnchorPane prefHeight="293.0" prefWidth="745.0">
+                    <children>
+
+                        <!-- ID Reserva -->
+                        <Label layoutX="55.0" layoutY="33.0" text="ID Reserva:" />
+                        <TextField fx:id="txtIdReserva" layoutX="140.0" layoutY="29.0" prefHeight="26.0" prefWidth="242.0" />
+
+                        <!-- ID Usuario -->
+                        <Label layoutX="410.0" layoutY="33.0" text="ID Usuario:" />
+                        <TextField fx:id="txtIdUsuario" layoutX="490.0" layoutY="29.0" prefHeight="26.0" prefWidth="230.0" />
+
+                        <!-- Nombre Clase -->
+                        <Label layoutX="45.0" layoutY="78.0" text="Nombre Clase:" />
+                        <TextField fx:id="txtNombreClase" layoutX="140.0" layoutY="73.0" prefHeight="26.0" prefWidth="242.0" />
+
+                        <!-- Botones -->
+                        <Button fx:id="btnAgregar" layoutX="73.0" layoutY="135.0" onAction="#onActionAgregar" prefHeight="26.0" prefWidth="133.0" text="Agregar" />
+
+                        <Button fx:id="btnEliminar" layoutX="311.0" layoutY="135.0" onAction="#onActionEliminar" prefHeight="26.0" prefWidth="133.0" text="Eliminar" />
+
+                        <Button fx:id="btnActualizar" layoutX="570.0" layoutY="135.0" onAction="#onActionActualizar" prefHeight="26.0" prefWidth="133.0" text="Actualizar" />
+
+                    </children>
+                </AnchorPane>
+
+                <!-- TABLA -->
+                <AnchorPane prefHeight="100.0" prefWidth="160.0">
+                    <children>
+
+                        <TableView fx:id="tableReservas" layoutX="14.0" layoutY="14.0" prefHeight="311.0" prefWidth="716.0">
+
+                            <columns>
+                                <TableColumn fx:id="tcIdReserva" prefWidth="120" text="ID Reserva" />
+
+                                <TableColumn fx:id="tcUsuario" prefWidth="180" text="Usuario" />
+
+                                <TableColumn fx:id="tcClase" prefWidth="180" text="Clase" />
+
+                                <TableColumn fx:id="tcFecha" prefWidth="120" text="Fecha" />
+
+                                <TableColumn fx:id="tcEstado" prefWidth="115.199951171875" text="Estado" />
+                            </columns>
+
+                        </TableView>
+
+                    </children>
+                </AnchorPane>
+
+            </items>
+        </SplitPane>
+    </children>
+</AnchorPane>

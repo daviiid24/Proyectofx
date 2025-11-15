@@ -2,6 +2,7 @@ package co.edu.uniquindio.proyecto.utils;
 
 import co.edu.uniquindio.proyecto.model.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 
@@ -68,6 +69,17 @@ public class DataUtil {
         clase2.setOwnedByGimnasio(gimnasio);
         clase2.getListaUsuariosRegistrados().add(usuario2);
         clase2.actualizarUsuariosRegistradosTexto();
+
+        Reserva reserva = new Reserva();
+        reserva.setIdReserva("R001");
+        reserva.setUsuario(usuario1);
+        reserva.setClase(clase1);
+        reserva.setFechaReserva(LocalDate.of(2024, 5, 20));
+        reserva.setEstado(Estado.ACTIVA);
+
+        gimnasio.getListaReservas().add(reserva);
+
+
 
         gimnasio.getListaClases().add(clase1);
         gimnasio.getListaClases().add(clase2);

@@ -4,6 +4,7 @@ import co.edu.uniquindio.proyecto.controller.ReporteController;
 import co.edu.uniquindio.proyecto.model.Reporte;
 import co.edu.uniquindio.proyecto.model.TipoReporte;
 import co.edu.uniquindio.proyecto.model.TipoUsuario;
+import co.edu.uniquindio.proyecto.model.Usuario;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,7 +36,7 @@ public class CrudReporteViewController implements Initializable {
     private ChoiceBox<TipoReporte> chTipoReporte;
 
     @FXML
-    private TableView<Reporte> tableReportes;
+    private TableView<Reporte> tableReporte;
 
     @FXML
     private TableColumn<Reporte, String> tcDescripcion;
@@ -54,12 +55,12 @@ public class CrudReporteViewController implements Initializable {
 
     @FXML
     void onActionActualizar(ActionEvent event) {
-
+        actualizarReporte();
     }
 
     @FXML
     void onActionEliminar(ActionEvent event) {
-
+        eliminarReporte();
     }
 
     @FXML
@@ -99,6 +100,47 @@ public class CrudReporteViewController implements Initializable {
         }
     }
 
+    private void actualizarReporte(){
+        String descripcion=txtDescripcion.getText();
+
+        TipoReporte tipoSeleccionado = chTipoReporte.getValue();
+        String tipoReporteTexto = tipoSeleccionado != null ? tipoSeleccionado.name() : null;
+
+        boolean datosValidos = validarCampos(descripcion,tipoReporteTexto);
+
+        if (datosValidos){
+            Reporte reporte=reporteController.actualizarReporte(idReporte, descripcion,tipoReporteTexto);
+            if(reporte!=null){
+                mostrarMensaje("Notificación", "Actualización reporte", "Reporte actualizado",Alert.AlertType.CONFIRMATION);
+                tableReporte.refresh();
+            } else {
+                mostrarMensaje("Notificación", "Actualización reporte", "Reporte no actualizado",Alert.AlertType.WARNING);
+            }
+        } else {
+            mostrarMensaje("Notificación", "Actualización usuario", "Campos vacios",Alert.AlertType.INFORMATION);
+        }
+
+    }
+
+    private void eliminarUsuario(){
+        String identificacion=txtIdentificacion.getText();
+        boolean datosValidos = validarCamposEliminar(identificacion);
+        if (!datosValidos) {
+            mostrarMensaje("Notificación", "Eliminación usuario", "Campos vacíos", Alert.AlertType.INFORMATION);
+            return;
+        }
+        Usuario usuarioEliminado = usuarioController.eliminarUsuario(identificacion);
+        if (usuarioEliminado != null) {
+            listaUsuarios.removeIf(usuario -> usuario.getIdentificacion().equalsIgnoreCase(identificacion));
+            tableUsuario.refresh();
+
+            mostrarMensaje("Notificación", "Eliminación usuario", "Usuario eliminado", Alert.AlertType.CONFIRMATION);
+            limpiarCampos();
+        } else {
+            mostrarMensaje("Notificación", "Eliminación usuario", "Usuario no encontrado", Alert.AlertType.WARNING);
+        }
+    }
+
     private boolean validarCamposEliminar(String identificacion) {
         return !identificacion.isEmpty();
     }
@@ -114,8 +156,8 @@ public class CrudReporteViewController implements Initializable {
     private void initView() {
         initDataBinding();
         obtenerReportes();
-        tableReportes.getItems().clear();
-        tableReportes.setItems(listaReportes);
+        tableReporte.getItems().clear();
+        tableReporte.setItems(listaReportes);
         listenerSelection();
     }
 
@@ -131,7 +173,7 @@ public class CrudReporteViewController implements Initializable {
     }
 
     private void listenerSelection() {
-        tableReportes.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+        tableReporte.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             reporteSeleccionado = newSelection;
             mostrarInformacion(reporteSeleccionado);
         });
@@ -164,7 +206,7 @@ public class CrudReporteViewController implements Initializable {
         txtDescripcion.clear();
         chTipoReporte.setValue(null);
         reporteSeleccionado = null;
-        tableReportes.getSelectionModel().clearSelection();
+        tableReporte.getSelectionModel().clearSelection();
     }
 
 

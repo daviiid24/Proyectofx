@@ -141,18 +141,6 @@ public class Gimnasio {
         return "Ingreso al gimnasio validado.";
     }
 
-    public Reporte crearReporte(TipoReporte tipo, String descripcion) {
-
-        Reporte reporte = new Reporte();
-        reporte.setIdReporte("REP" + (listaReportes.size() + 1));
-        reporte.setTipo(tipo);
-        reporte.setDescripcion(descripcion);
-        reporte.setOwnedByGimnasio(this);
-
-        listaReportes.add(reporte);
-        return reporte;
-    }
-
     public Reporte generarReporte(TipoReporte tipo, String descripcionIngresada) {
 
         Reporte reporte = new Reporte();
@@ -177,6 +165,40 @@ public class Gimnasio {
         return reporte;
     }
 
+    public Reporte actualizarReporte(String idReporte, TipoReporte tipo, String descripcionIngresada) {
+
+        Reporte reporteEncontrado = obtenerReporte(idReporte);
+
+        reporteEncontrado.setIdReporte(idReporte);
+        reporteEncontrado.setTipo(tipo);
+
+        switch (tipo) {
+            case USUARIOS_ACTIVOS ->
+                    reporteEncontrado.setContenidoGenerado(generarReporteUsuariosActivos());
+
+            case CLASES_MAS_RESERVADAS ->
+                    reporteEncontrado.setContenidoGenerado(generarReporteClasesMasReservadas());
+
+            case VENCIMIENTO_MEMBRESIAS ->
+                    reporteEncontrado.setContenidoGenerado(generarReporteVencimientoMembresias());
+        }
+
+        reporteEncontrado.setDescripcion(descripcionIngresada);
+
+        return reporteEncontrado;
+    }
+
+    public Reporte obtenerReporte(String idReporte) {
+        Reporte reporteEncontrado = null;
+        for (Reporte reporte : getListaReportes()) {
+            if (reporte.getIdReporte().equalsIgnoreCase(idReporte)) {
+                reporteEncontrado = reporte;
+                break;
+            }
+        }
+
+        return reporteEncontrado;
+    }
 
     private String generarReporteUsuariosActivos() {
 

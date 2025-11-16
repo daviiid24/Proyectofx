@@ -57,7 +57,7 @@
             </HBox>
 
             <!-- TABLA DE REPORTES -->
-            <TableView fx:id="tableReportes" prefHeight="400">
+            <TableView fx:id="tableReporte" prefHeight="400">
 
                 <columns>
                     <TableColumn fx:id="tcIdReporte" prefWidth="150" text="ID" />

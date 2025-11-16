@@ -3,6 +3,7 @@ module co.edu.uniquindio.proyectofx.proyectofx {
     requires javafx.fxml;
     requires java.desktop;
     requires javafx.base;
+    requires co.edu.uniquindio.proyectofx.proyectofx;
 
     opens co.edu.uniquindio.proyecto to javafx.fxml;
     opens co.edu.uniquindio.proyecto.ViewController;

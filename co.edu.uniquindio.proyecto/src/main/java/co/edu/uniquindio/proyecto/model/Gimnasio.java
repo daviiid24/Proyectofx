@@ -282,13 +282,11 @@ public class Gimnasio {
 
     public String validarUsuarioAvanzado(String nombre, String identificacion, String telefono) {
 
-        // 1. Validar existencia del usuario
         Usuario usuarioEncontrado = obtenerUsuario(identificacion);
         if (usuarioEncontrado == null) {
             return "El usuario no existe.";
         }
 
-        // 2. Validar membresía
         Membresia membresia = usuarioEncontrado.getMembresia();
         if (membresia == null) {
             return "El usuario no tiene una membresía asignada.";
@@ -299,7 +297,6 @@ public class Gimnasio {
             return "La membresía del usuario está vencida o inactiva.";
         }
 
-        // 3. VALIDAR LOS 3 DATOS EN UN SOLO IF
         boolean datosCorrectos =
                 usuarioEncontrado.getNombre().equals(nombre) &&
                         usuarioEncontrado.getIdentificacion().equals(identificacion) &&
@@ -309,7 +306,6 @@ public class Gimnasio {
             return "Los datos ingresados no coinciden con los registros.";
         }
 
-        // 4. Registro de asistencia
         usuarioEncontrado.registrarAsistencia(
                 new Asistencia(LocalDate.now(), "Ingreso al gimnasio validado")
         );

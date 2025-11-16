@@ -10,12 +10,24 @@ public class DataUtil {
 
     public static Gimnasio inicializarDatos() {
         Gimnasio gimnasio = new Gimnasio();
+
+        Membresia membresia = new Membresia();
+        membresia.setIdMembresia("MEM001");
+        membresia.setTipo(TipoMembresia.PREMIUM);
+        membresia.setDuracion(Duracion.MENSUAL);
+        membresia.setCosto(90000);
+        membresia.setFechaInicio(LocalDate.of(2025, 11, 14));
+        membresia.setFechaVencimiento(LocalDate.of(2025, 12, 14));
+        membresia.setEstado(Estado.ACTIVA);
+
+
         Usuario usuario1 = new Usuario();
         usuario1.setNombre("Laura");
         usuario1.setEdad(25);
         usuario1.setIdentificacion("1001");
         usuario1.setTelefono("3105678901");
         usuario1.setTipoUsuario(TipoUsuario.ESTUDIANTE);
+        usuario1.setMembresia(membresia);
 
         Usuario usuario2 = new Usuario();
         usuario2.setNombre("Carlos");
@@ -76,6 +88,11 @@ public class DataUtil {
         reserva.setClase(clase1);
         reserva.setFechaReserva(LocalDate.of(2024, 5, 20));
         reserva.setEstado(Estado.ACTIVA);
+
+
+        gimnasio.getListaMembresias().add(membresia);
+
+
 
         gimnasio.getListaReservas().add(reserva);
 

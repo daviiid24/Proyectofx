@@ -105,6 +105,37 @@
                     </AnchorPane>
                 </content>
             </Tab>
+            <Tab text="Consulta Reportes">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="618.0" prefWidth="927.0">
+                        <children>
+                            <SplitPane layoutX="14.0" layoutY="14.0" orientation="VERTICAL" prefHeight="618.0" prefWidth="927.0">
+                                <items>
+                                    <fx:include source="ConsultaReporteView.fxml" />
+                                </items>
+                            </SplitPane>
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
+            <Tab text="Reportes Administrador">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="618.0" prefWidth="927.0">
+                        <children>
+                            <SplitPane layoutX="14.0" layoutY="14.0" orientation="VERTICAL" prefHeight="618.0" prefWidth="927.0">
+                                <items>
+                                    <fx:include source="CrudReporteAvanzado.fxml" />
+                                </items>
+                            </SplitPane>
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
+            <Tab text="Consulta Reportes Administrador">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
             </tabs>
         </TabPane>
     </children>

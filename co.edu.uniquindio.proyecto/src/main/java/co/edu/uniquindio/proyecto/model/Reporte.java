@@ -5,7 +5,6 @@ import java.time.LocalDate;
 public class Reporte {
 
     private String idReporte;
-    private TipoReporte tipo;
     private LocalDate fechaGeneracion;
     private String descripcion;
     private String contenidoGenerado;
@@ -21,14 +20,6 @@ public class Reporte {
 
     public void setIdReporte(String idReporte) {
         this.idReporte = idReporte;
-    }
-
-    public TipoReporte getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(TipoReporte tipo) {
-        this.tipo = tipo;
     }
 
     public LocalDate getFechaGeneracion() {
@@ -63,9 +54,10 @@ public class Reporte {
     public String toString() {
         return "Reporte{" +
                 "idReporte='" + idReporte + '\'' +
-                ", tipo=" + tipo +
                 ", fechaGeneracion=" + fechaGeneracion +
                 ", descripcion='" + descripcion + '\'' +
+                ", contenidoGenerado='" + contenidoGenerado + '\'' +
+                ", ownedByGimnasio=" + ownedByGimnasio +
                 '}';
     }
 }

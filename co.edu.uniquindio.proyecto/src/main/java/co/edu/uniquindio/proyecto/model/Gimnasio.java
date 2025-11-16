@@ -11,7 +11,8 @@ public class Gimnasio {
     private ArrayList<Reserva> listaReservas = new ArrayList<>();
     private ArrayList<Entrenador> listaEntrenadores = new ArrayList<>();
     private ArrayList<Clase> listaClases = new ArrayList<>();
-    private ArrayList<Reporte> listaReportes = new ArrayList<>();
+    private ArrayList<ReporteRecepcionista> listaReportesRecepcionista = new ArrayList<>();
+    private ArrayList<ReporteAdministrador> listaReportesAdministrador = new ArrayList<>();
     private Administrador administrador;
     private Recepcionista recepcionista;
 
@@ -82,12 +83,20 @@ public class Gimnasio {
         this.listaReservas = listaReservas;
     }
 
-    public ArrayList<Reporte> getListaReportes() {
-        return listaReportes;
+    public ArrayList<ReporteRecepcionista> getListaReportesRecepcionista() {
+        return listaReportesRecepcionista;
     }
 
-    public void setListaReportes(ArrayList<Reporte> listaReportes) {
-        this.listaReportes = listaReportes;
+    public void setListaReportesRecepcionista(ArrayList<ReporteRecepcionista> listaReportesRecepcionista) {
+        this.listaReportesRecepcionista = listaReportesRecepcionista;
+    }
+
+    public ArrayList<ReporteAdministrador> getListaReportesAdministrador() {
+        return listaReportesAdministrador;
+    }
+
+    public void setListaReportesAdministrador(ArrayList<ReporteAdministrador> listaReportesAdministrador) {
+        this.listaReportesAdministrador = listaReportesAdministrador;
     }
 
     @Override
@@ -99,13 +108,14 @@ public class Gimnasio {
                 ", listaReservas=" + listaReservas +
                 ", listaEntrenadores=" + listaEntrenadores +
                 ", listaClases=" + listaClases +
-                ", listaReportes=" + listaReportes +
+                ", listaReportesRecepcionista=" + listaReportesRecepcionista +
+                ", listaReportesAdministrador=" + listaReportesAdministrador +
                 ", administrador=" + administrador +
                 ", recepcionista=" + recepcionista +
                 '}';
     }
 
-
+    //FALTA
     public boolean asignarMembresia(String idUsuario, String idMembresia) {
         Usuario usuarioEncontrado = obtenerUsuario(idUsuario);
         Membresia membresiaEncontrada = obtenerMembresia(idMembresia);
@@ -141,36 +151,46 @@ public class Gimnasio {
         return "Ingreso al gimnasio validado.";
     }
 
-    public Reporte generarReporte(TipoReporte tipo, String descripcionIngresada) {
+    public ReporteRecepcionista generarReporteRecepcionista(TipoReporte tipo, String descripcionIngresada) {
 
-        Reporte reporte = new Reporte();
-        reporte.setIdReporte("REP" + (listaReportes.size() + 1));
-        reporte.setTipo(tipo);
+        ReporteRecepcionista reporteRecepcionista = new ReporteRecepcionista();
+        reporteRecepcionista.setIdReporte("REP" + (listaReportesRecepcionista.size() + 1));
+        reporteRecepcionista.setTipoRecepcionista(tipo);
 
         switch (tipo) {
             case USUARIOS_ACTIVOS ->
-                    reporte.setContenidoGenerado(generarReporteUsuariosActivos());
+                    reporteRecepcionista.setContenidoGenerado(generarReporteUsuariosActivos());
 
             case CLASES_MAS_RESERVADAS ->
-                    reporte.setContenidoGenerado(generarReporteClasesMasReservadas());
+                    reporteRecepcionista.setContenidoGenerado(generarReporteClasesMasReservadas());
 
             case VENCIMIENTO_MEMBRESIAS ->
-                    reporte.setContenidoGenerado(generarReporteVencimientoMembresias());
+                    reporteRecepcionista.setContenidoGenerado(generarReporteVencimientoMembresias());
         }
 
-        reporte.setDescripcion(descripcionIngresada);
+        reporteRecepcionista.setDescripcion(descripcionIngresada);
 
-        listaReportes.add(reporte);
+        listaReportesRecepcionista.add(reporteRecepcionista);
 
-        return reporte;
+        return reporteRecepcionista;
     }
 
-    public Reporte actualizarReporte(String idReporte, TipoReporte tipo, String descripcionIngresada) {
+    public ReporteRecepcionista eliminarReporteRecepcionista(String idReporte) {
+        ReporteRecepcionista reporteEncontrado = obtenerReporteRecepcionista(idReporte);
+        if (reporteEncontrado != null) {
+            getListaReportesRecepcionista().remove(reporteEncontrado);
+            return reporteEncontrado;
+        } else {
+            return null;
+        }
+    }
 
-        Reporte reporteEncontrado = obtenerReporte(idReporte);
+    public ReporteRecepcionista actualizarReporteRecepcionista(String idReporte, TipoReporte tipo, String descripcionIngresada) {
+
+        ReporteRecepcionista reporteEncontrado = obtenerReporteRecepcionista(idReporte);
 
         reporteEncontrado.setIdReporte(idReporte);
-        reporteEncontrado.setTipo(tipo);
+        reporteEncontrado.setTipoRecepcionista(tipo);
 
         switch (tipo) {
             case USUARIOS_ACTIVOS ->
@@ -188,11 +208,11 @@ public class Gimnasio {
         return reporteEncontrado;
     }
 
-    public Reporte obtenerReporte(String idReporte) {
-        Reporte reporteEncontrado = null;
-        for (Reporte reporte : getListaReportes()) {
-            if (reporte.getIdReporte().equalsIgnoreCase(idReporte)) {
-                reporteEncontrado = reporte;
+    public ReporteRecepcionista obtenerReporteRecepcionista(String idReporte) {
+        ReporteRecepcionista reporteEncontrado = null;
+        for (ReporteRecepcionista reporteRecepcionista : getListaReportesRecepcionista()) {
+            if (reporteRecepcionista.getIdReporte().equalsIgnoreCase(idReporte)) {
+                reporteEncontrado = reporteRecepcionista;
                 break;
             }
         }
@@ -267,45 +287,116 @@ public class Gimnasio {
         return reporte;
     }
 
-    public void generarReporteAvanzado(int opcion) {
-        switch (opcion) {
-            case 1 -> generarReporteAsistenciasUsuario();
-            case 2 -> generarReporteIngresosPorMembresia();
-            case 3 -> generarReporteClasesPopulares();
-            default -> System.out.println("Opción inválida");
+    public ReporteAdministrador generarReporteAdministrador(TipoReporteAvanzado tipo, String descripcionIngresada) {
+
+        ReporteAdministrador reporteAdministrador = new ReporteAdministrador();
+        reporteAdministrador.setIdReporte("REP" + (listaReportesAdministrador.size() + 1) + "A");
+        reporteAdministrador.setTipoAdministrador(tipo);
+
+        switch (tipo) {
+            case ASISTENCIAS_USUARIO ->
+                    reporteAdministrador.setContenidoGenerado(generarReporteAsistenciasUsuario());
+
+            case INGRESOS_POR_MEMBRESIA ->
+                    reporteAdministrador.setContenidoGenerado(generarReporteIngresosPorMembresia());
+
+            case CLASES_POPULARES ->
+                    reporteAdministrador.setContenidoGenerado(generarReporteClasesPopulares());
+        }
+
+        reporteAdministrador.setDescripcion(descripcionIngresada);
+
+        listaReportesAdministrador.add(reporteAdministrador);
+
+        return reporteAdministrador;
+    }
+
+    public ReporteAdministrador eliminarReporteAdministrador(String idReporte) {
+        ReporteAdministrador reporteEncontrado = obtenerReporteAdministrador(idReporte);
+        if (reporteEncontrado != null) {
+            getListaReportesAdministrador().remove(reporteEncontrado);
+            return reporteEncontrado;
+        } else {
+            return null;
         }
     }
 
-    private void generarReporteAsistenciasUsuario() {
-        System.out.println("Reporte de asistencias por usuario:");
+    public ReporteAdministrador actualizarReporteAdministrador(String idReporte, TipoReporteAvanzado tipo, String descripcionIngresada) {
 
-        if (listaUsuarios.isEmpty()) {
-            System.out.println("No hay usuarios registrados en el gimnasio.");
-            return;
+        ReporteAdministrador reporteEncontrado = obtenerReporteAdministrador(idReporte);
+
+        reporteEncontrado.setIdReporte(idReporte);
+        reporteEncontrado.setTipoAdministrador(tipo);
+
+        switch (tipo) {
+            case ASISTENCIAS_USUARIO ->
+                    reporteEncontrado.setContenidoGenerado(generarReporteUsuariosActivos());
+
+            case INGRESOS_POR_MEMBRESIA ->
+                    reporteEncontrado.setContenidoGenerado(generarReporteClasesMasReservadas());
+
+            case CLASES_POPULARES ->
+                    reporteEncontrado.setContenidoGenerado(generarReporteVencimientoMembresias());
         }
-        for (Usuario usuario : listaUsuarios) {
-            System.out.println("\nUsuario: " + usuario.getNombre() +
-                    " | ID: " + usuario.getIdentificacion());
 
-            if (usuario.getAsistencias().isEmpty()) {
-                System.out.println("No tiene asistencias registradas.");
-            } else {
-                System.out.println("Total asistencias: " + usuario.getAsistencias().size());
-                System.out.println("Fechas de asistencia:");
-                for (Asistencia asistencia : usuario.getAsistencias()) {
-                    System.out.println("     - " + asistencia.getFecha());
-                }
+        reporteEncontrado.setDescripcion(descripcionIngresada);
+
+        return reporteEncontrado;
+    }
+
+    public ReporteAdministrador obtenerReporteAdministrador(String idReporte) {
+        ReporteAdministrador reporteEncontrado = null;
+        for (ReporteAdministrador reporteAdministrador : getListaReportesAdministrador()) {
+            if (reporteAdministrador.getIdReporte().equalsIgnoreCase(idReporte)) {
+                reporteEncontrado = reporteAdministrador;
+                break;
             }
         }
+
+        return reporteEncontrado;
     }
 
-    private void generarReporteIngresosPorMembresia() {
-        double totalMensual=0;
-        double totalTrimestral=0;
-        double totalAnual=0;
+    public String generarReporteAsistenciasUsuario() {
+
+        String reporte = "REPORTE DE ASISTENCIAS POR USUARIO\n\n";
+
+        if (listaUsuarios.isEmpty()) {
+            return "No hay usuarios registrados en el gimnasio.";
+        }
+
+        for (Usuario usuario : listaUsuarios) {
+
+            reporte += "--------------------------------------------\n";
+            reporte += "Usuario: " + usuario.getNombre() + "\n";
+            reporte += "ID: " + usuario.getIdentificacion() + "\n\n";
+
+            if (usuario.getAsistencias().isEmpty()) {
+                reporte += "No tiene asistencias registradas.\n\n";
+            } else {
+                reporte += "Total asistencias: " + usuario.getAsistencias().size() + "\n";
+                reporte += "Fechas de asistencia:\n";
+
+                for (Asistencia asistencia : usuario.getAsistencias()) {
+                    reporte += "  - " + asistencia.getFecha() + "\n";
+                }
+
+                reporte += "\n";
+            }
+        }
+
+        return reporte;
+    }
+
+
+    public String generarReporteIngresosPorMembresia() {
+
+        double totalMensual = 0;
+        double totalTrimestral = 0;
+        double totalAnual = 0;
+
         for (Usuario usuario : listaUsuarios) {
             Membresia membresia = usuario.getMembresia();
-            if(membresia!=null){
+            if (membresia != null) {
                 switch (membresia.getDuracion()) {
                     case MENSUAL:
                         totalMensual += membresia.getCosto();
@@ -319,22 +410,28 @@ public class Gimnasio {
                 }
             }
         }
-        double total=totalMensual+totalTrimestral+totalAnual;
 
-        System.out.println("Reporte de ingresos por membresía:");
-        System.out.println("Total ingresos mensuales: $" + totalMensual);
-        System.out.println("Total ingresos trimestrales: $" + totalTrimestral);
-        System.out.println("Total ingresos anuales: $" + totalAnual);
-        System.out.println("Total ingresos por todas las membresias: $" + total);
+        double total = totalMensual + totalTrimestral + totalAnual;
+
+        String reporte = "REPORTE DE INGRESOS POR MEMBRESÍA\n\n";
+
+        reporte += "Total ingresos mensuales: $" + totalMensual + "\n";
+        reporte += "Total ingresos trimestrales: $" + totalTrimestral + "\n";
+        reporte += "Total ingresos anuales: $" + totalAnual + "\n";
+        reporte += "Total ingresos por todas las membresías: $" + total + "\n";
+
+        return reporte;
     }
 
-    private void generarReporteClasesPopulares() {
-        System.out.println("Reporte de clases mas populares");
+    public String generarReporteClasesPopulares() {
+
+        String reporte = "REPORTE DE CLASES MÁS POPULARES\n\n";
 
         if (listaClases == null || listaClases.isEmpty()) {
-            System.out.println("No hay clases registradas en el sistema.");
-            return;
+            reporte += "No hay clases registradas en el sistema.\n";
+            return reporte;
         }
+
         ArrayList<Clase> clasesOrdenadas = new ArrayList<>(listaClases);
 
         for (int i = 0; i < clasesOrdenadas.size() - 1; i++) {
@@ -346,16 +443,17 @@ public class Gimnasio {
                 }
             }
         }
-        for(Clase clase : listaClases) {
-            System.out.println("Clase: " + clase.getNombre()
-                    + " | Tipo: " + clase.getTipoClase()
-                    + " | Entrenador: " + (clase.getEntrenador() != null ? clase.getEntrenador().getNombre() : "Sin asignar")
-                    + " | Horario: " + clase.getHorario()
-                    + " | Cupo Máximo: " + clase.getCupoMaximo()
-                    + " | Usuarios Inscritos: " + clase.getNumeroReservas());
+
+        for (Clase clase : clasesOrdenadas) {
+            reporte += "Clase: " + clase.getNombre() + "\n";
+            reporte += "Tipo: " + clase.getTipoClase() + "\n";
+            reporte += "Entrenador: " + (clase.getEntrenador() != null ? clase.getEntrenador().getNombre() : "Sin asignar") + "\n";
+            reporte += "Horario: " + clase.getHorario() + "\n";
+            reporte += "Cupo máximo: " + clase.getCupoMaximo() + "\n";
+            reporte += "Usuarios inscritos: " + clase.getNumeroReservas() + "\n\n";
         }
 
-
+        return reporte;
     }
 
     public String validarUsuarioAvanzado(String nombre, String identificacion, String telefono) {
@@ -739,7 +837,39 @@ public class Gimnasio {
         return reservaEncontrada;
     }
 
+    public String buscarReporteRecepcionista(String idReporte) {
+        ReporteRecepcionista reporteEncontrado=obtenerReporteRecepcionista(idReporte);
+        String resultado="";
+        if (reporteEncontrado != null) {
+            resultado="INFORMACIÓN DEL REPORTE\n\n" +
+                    "ID del Reporte: " + reporteEncontrado.getIdReporte() + "\n" +
+                    "Tipo de Reporte: " + reporteEncontrado.getTipoRecepcionista() + "\n" +
+                    "Fecha de Generación: " + reporteEncontrado.getFechaGeneracion() + "\n" +
+                    "Descripción: " + reporteEncontrado.getDescripcion() + "\n\n" +
+                    "Contenido Generado:\n" +
+                    reporteEncontrado.getContenidoGenerado();
+        } else {
+            resultado="El reporte no ha sido generado o el id fue mal digitado.";
+        }
+        return resultado;
+    }
 
+    public String buscarReporteAdministrador(String idReporte) {
+        ReporteAdministrador reporteEncontrado=obtenerReporteAdministrador(idReporte);
+        String resultado="";
+        if (reporteEncontrado != null) {
+            resultado="INFORMACIÓN DEL REPORTE\n\n" +
+                    "ID del Reporte: " + reporteEncontrado.getIdReporte() + "\n" +
+                    "Tipo de Reporte: " + reporteEncontrado.getTipoAdministrador() + "\n" +
+                    "Fecha de Generación: " + reporteEncontrado.getFechaGeneracion() + "\n" +
+                    "Descripción: " + reporteEncontrado.getDescripcion() + "\n\n" +
+                    "Contenido Generado:\n" +
+                    reporteEncontrado.getContenidoGenerado();
+        } else {
+            resultado="El reporte no ha sido generado o el id fue mal digitado.";
+        }
+        return resultado;
+    }
 
 }
 

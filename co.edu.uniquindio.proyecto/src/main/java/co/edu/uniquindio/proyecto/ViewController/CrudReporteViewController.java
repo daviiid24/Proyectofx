@@ -1,10 +1,7 @@
 package co.edu.uniquindio.proyecto.ViewController;
 
 import co.edu.uniquindio.proyecto.controller.ReporteController;
-import co.edu.uniquindio.proyecto.model.Reporte;
-import co.edu.uniquindio.proyecto.model.TipoReporte;
-import co.edu.uniquindio.proyecto.model.TipoUsuario;
-import co.edu.uniquindio.proyecto.model.Usuario;
+import co.edu.uniquindio.proyecto.model.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,8 +17,8 @@ import java.util.ResourceBundle;
 public class CrudReporteViewController implements Initializable {
 
     ReporteController reporteController;
-    ObservableList<Reporte> listaReportes= FXCollections.observableArrayList();
-    Reporte reporteSeleccionado;
+    ObservableList<ReporteRecepcionista> listaReportes= FXCollections.observableArrayList();
+    ReporteRecepcionista reporteSeleccionado;
 
     @FXML
     private Button btnActualizar;
@@ -36,36 +33,36 @@ public class CrudReporteViewController implements Initializable {
     private ChoiceBox<TipoReporte> chTipoReporte;
 
     @FXML
-    private TableView<Reporte> tableReporte;
+    private TableView<ReporteRecepcionista> tableReporte;
 
     @FXML
-    private TableColumn<Reporte, String> tcDescripcion;
+    private TableColumn<ReporteRecepcionista, String> tcDescripcion;
 
     @FXML
-    private TableColumn<Reporte, String> tcFecha;
+    private TableColumn<ReporteRecepcionista, String> tcFecha;
 
     @FXML
-    private TableColumn<Reporte, String> tcIdReporte;
+    private TableColumn<ReporteRecepcionista, String> tcIdReporte;
 
     @FXML
-    private TableColumn<Reporte, String> tcTipo;
+    private TableColumn<ReporteRecepcionista, String> tcTipo;
 
     @FXML
     private TextField txtDescripcion;
 
     @FXML
     void onActionActualizar(ActionEvent event) {
-        actualizarReporte();
+        actualizarReporteRecepcionista();
     }
 
     @FXML
     void onActionEliminar(ActionEvent event) {
-        eliminarReporte();
+        eliminarReporteRecepcionista();
     }
 
     @FXML
     void onActionGenerarReporte(ActionEvent event) {
-        generarReporte();
+        generarReporteRecepcionista();
     }
 
     @FXML
@@ -78,7 +75,7 @@ public class CrudReporteViewController implements Initializable {
         initView();
     }
 
-    private void generarReporte() {
+    private void generarReporteRecepcionista() {
         String descripcion=txtDescripcion.getText();
 
         TipoReporte tipoSeleccionado = chTipoReporte.getValue();
@@ -87,10 +84,10 @@ public class CrudReporteViewController implements Initializable {
         boolean datosValidos = validarCampos(descripcion,tipoReporteTexto);
 
         if (datosValidos){
-            Reporte reporte=reporteController.generarReporte(descripcion,tipoReporteTexto);
-            if(reporte!=null){
+            ReporteRecepcionista reporteRecepcionista=reporteController.generarReporteRecepcionista(descripcion,tipoReporteTexto);
+            if(reporteRecepcionista!=null){
                 mostrarMensaje("Notificación", "Creación reporte", "Reporte creado", Alert.AlertType.CONFIRMATION);
-                listaReportes.add(reporte);
+                listaReportes.add(reporteRecepcionista);
                 limpiarCampos();
             } else {
                 mostrarMensaje("Notificación", "Creación reporte", "Reporte no creado",Alert.AlertType.WARNING);
@@ -100,8 +97,9 @@ public class CrudReporteViewController implements Initializable {
         }
     }
 
-    private void actualizarReporte(){
+    private void actualizarReporteRecepcionista(){
         String descripcion=txtDescripcion.getText();
+        String idReporte=reporteSeleccionado.getIdReporte();
 
         TipoReporte tipoSeleccionado = chTipoReporte.getValue();
         String tipoReporteTexto = tipoSeleccionado != null ? tipoSeleccionado.name() : null;
@@ -109,35 +107,35 @@ public class CrudReporteViewController implements Initializable {
         boolean datosValidos = validarCampos(descripcion,tipoReporteTexto);
 
         if (datosValidos){
-            Reporte reporte=reporteController.actualizarReporte(idReporte, descripcion,tipoReporteTexto);
-            if(reporte!=null){
+            ReporteRecepcionista reporteRecepcionista=reporteController.actualizarReporteRecepcionista(idReporte, descripcion,tipoReporteTexto);
+            if(reporteRecepcionista!=null){
                 mostrarMensaje("Notificación", "Actualización reporte", "Reporte actualizado",Alert.AlertType.CONFIRMATION);
                 tableReporte.refresh();
             } else {
                 mostrarMensaje("Notificación", "Actualización reporte", "Reporte no actualizado",Alert.AlertType.WARNING);
             }
         } else {
-            mostrarMensaje("Notificación", "Actualización usuario", "Campos vacios",Alert.AlertType.INFORMATION);
+            mostrarMensaje("Notificación", "Actualización reporte", "Campos vacios",Alert.AlertType.INFORMATION);
         }
 
     }
 
-    private void eliminarUsuario(){
-        String identificacion=txtIdentificacion.getText();
-        boolean datosValidos = validarCamposEliminar(identificacion);
+    private void eliminarReporteRecepcionista() {
+        String idReporte=reporteSeleccionado.getIdReporte();
+        boolean datosValidos = validarCamposEliminar(idReporte);
         if (!datosValidos) {
-            mostrarMensaje("Notificación", "Eliminación usuario", "Campos vacíos", Alert.AlertType.INFORMATION);
+            mostrarMensaje("Notificación", "Eliminación reporte", "Campos vacíos", Alert.AlertType.INFORMATION);
             return;
         }
-        Usuario usuarioEliminado = usuarioController.eliminarUsuario(identificacion);
-        if (usuarioEliminado != null) {
-            listaUsuarios.removeIf(usuario -> usuario.getIdentificacion().equalsIgnoreCase(identificacion));
-            tableUsuario.refresh();
+        ReporteRecepcionista reporteEliminado = reporteController.eliminarReporteRecepcionista(idReporte);
+        if (reporteEliminado != null) {
+            listaReportes.removeIf(reporteRecepcionista -> reporteRecepcionista.getIdReporte().equalsIgnoreCase(idReporte));
+            tableReporte.refresh();
 
-            mostrarMensaje("Notificación", "Eliminación usuario", "Usuario eliminado", Alert.AlertType.CONFIRMATION);
+            mostrarMensaje("Notificación", "Eliminación reporte", "Reporte eliminado", Alert.AlertType.CONFIRMATION);
             limpiarCampos();
         } else {
-            mostrarMensaje("Notificación", "Eliminación usuario", "Usuario no encontrado", Alert.AlertType.WARNING);
+            mostrarMensaje("Notificación", "Eliminación reporte", "Reporte no encontrado", Alert.AlertType.WARNING);
         }
     }
 
@@ -149,10 +147,6 @@ public class CrudReporteViewController implements Initializable {
         return !descripcion.isEmpty() && !tipoReporteTexto.isEmpty();
     }
 
-    private boolean validarCamposActualizar(String nombre, String identificacion, String edad, String telefono, TipoUsuario tipoSeleccionado) {
-        return !nombre.isEmpty() && !identificacion.isEmpty() && !edad.isEmpty() && !telefono.isEmpty();
-    }
-
     private void initView() {
         initDataBinding();
         obtenerReportes();
@@ -162,12 +156,12 @@ public class CrudReporteViewController implements Initializable {
     }
 
     private void obtenerReportes() {
-        listaReportes.addAll(reporteController.obtenerReportes());
+        listaReportes.addAll(reporteController.obtenerReportesRecepcionista());
     }
 
     private void initDataBinding() {
         tcIdReporte.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdReporte()));
-        tcTipo.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getTipo())));
+        tcTipo.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getTipoRecepcionista())));
         tcFecha.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getFechaGeneracion())));
         tcDescripcion.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescripcion()));
     }
@@ -179,10 +173,10 @@ public class CrudReporteViewController implements Initializable {
         });
     }
 
-    private void mostrarInformacion(Reporte reporteSeleccionado) {
+    private void mostrarInformacion(ReporteRecepcionista reporteSeleccionado) {
         if(reporteSeleccionado != null){
             txtDescripcion.setText(reporteSeleccionado.getDescripcion());
-            chTipoReporte.setValue(reporteSeleccionado.getTipo());
+            chTipoReporte.setValue(reporteSeleccionado.getTipoRecepcionista());
         }
     }
 

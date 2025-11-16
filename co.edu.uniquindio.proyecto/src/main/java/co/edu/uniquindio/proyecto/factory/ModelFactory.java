@@ -90,11 +90,44 @@ public class ModelFactory {
         return gimnasio.validarUsuarioAvanzado(nombre, idUsuario, telefono);
     }
 
-    public List<Reporte> obtenerReportes() {
-        return gimnasio.getListaReportes();
+    public List<ReporteRecepcionista> obtenerReportesRecepcionista() {
+        return gimnasio.getListaReportesRecepcionista();
     }
 
-    public Reporte generarReporte(String descripcion, String tipoReporteTexto) {
-        return gimnasio.generarReporte(TipoReporte.valueOf(tipoReporteTexto), descripcion);
+    public ReporteRecepcionista generarReporteRecepcionista(String descripcion, String tipoReporteTexto) {
+        return gimnasio.generarReporteRecepcionista(TipoReporte.valueOf(tipoReporteTexto), descripcion);
     }
+
+    public ReporteRecepcionista actualizarReporteRecepcionista(String idReporte, String descripcion, String tipoReporteTexto) {
+        return gimnasio.actualizarReporteRecepcionista(idReporte, TipoReporte.valueOf(tipoReporteTexto), descripcion);
+    }
+
+    public ReporteRecepcionista eliminarReporteRecepcionista(String idReporte) {
+        return gimnasio.eliminarReporteRecepcionista(idReporte);
+    }
+
+    public String buscarReporteRecepcionista(String idReporte) {
+        return gimnasio.buscarReporteRecepcionista(idReporte);
+    }
+
+    public List<ReporteAdministrador> obtenerReportesAdministrador() {
+        return gimnasio.getListaReportesAdministrador();
+    }
+
+    public ReporteAdministrador generarReporteAdministrador(String descripcion, String tipoReporteTexto) {
+        return gimnasio.generarReporteAdministrador(TipoReporteAvanzado.valueOf(tipoReporteTexto), descripcion);
+    }
+
+    public ReporteAdministrador actualizarReporteAdministrador(String idReporte, String descripcion, String tipoReporteTexto) {
+        return gimnasio.actualizarReporteAdministrador(idReporte, TipoReporteAvanzado.valueOf(tipoReporteTexto), descripcion);
+    }
+
+    public ReporteAdministrador eliminarReporteAdministrador(String idReporte) {
+        return gimnasio.eliminarReporteAdministrador(idReporte);
+    }
+
+    public String buscarReporteAdministrador(String idReporte) {
+        return gimnasio.buscarReporteAdministrador(idReporte);
+    }
+
 }

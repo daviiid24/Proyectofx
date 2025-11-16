@@ -90,4 +90,11 @@ public class ModelFactory {
         return gimnasio.validarUsuarioAvanzado(nombre, idUsuario, telefono);
     }
 
+    public List<Reporte> obtenerReportes() {
+        return gimnasio.getListaReportes();
+    }
+
+    public Reporte generarReporte(String descripcion, String tipoReporteTexto) {
+        return gimnasio.generarReporte(TipoReporte.valueOf(tipoReporteTexto), descripcion);
+    }
 }

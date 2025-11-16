@@ -3,27 +3,36 @@ package co.edu.uniquindio.proyecto.model;
 import java.time.LocalDate;
 
 public class Reporte {
-    private String tipo;
+
+    private String idReporte;
+    private TipoReporte tipo;
     private LocalDate fechaGeneracion;
     private String descripcion;
+    private String contenidoGenerado;
     private Gimnasio ownedByGimnasio;
 
-    public Reporte(){}
+    public Reporte() {
+        this.fechaGeneracion = LocalDate.now();
+    }
 
-    public String getTipo() {
+    public String getIdReporte() {
+        return idReporte;
+    }
+
+    public void setIdReporte(String idReporte) {
+        this.idReporte = idReporte;
+    }
+
+    public TipoReporte getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoReporte tipo) {
         this.tipo = tipo;
     }
 
     public LocalDate getFechaGeneracion() {
         return fechaGeneracion;
-    }
-
-    public void setFechaGeneracion(LocalDate fechaGeneracion) {
-        this.fechaGeneracion = fechaGeneracion;
     }
 
     public String getDescripcion() {
@@ -32,6 +41,14 @@ public class Reporte {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getContenidoGenerado() {
+        return contenidoGenerado;
+    }
+
+    public void setContenidoGenerado(String contenidoGenerado) {
+        this.contenidoGenerado = contenidoGenerado;
     }
 
     public Gimnasio getOwnedByGimnasio() {
@@ -45,10 +62,10 @@ public class Reporte {
     @Override
     public String toString() {
         return "Reporte{" +
-                "tipo='" + tipo + '\'' +
+                "idReporte='" + idReporte + '\'' +
+                ", tipo=" + tipo +
                 ", fechaGeneracion=" + fechaGeneracion +
                 ", descripcion='" + descripcion + '\'' +
-                ", ownedByGimnasio=" + ownedByGimnasio +
                 '}';
     }
 }

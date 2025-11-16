@@ -89,6 +89,15 @@ public class DataUtil {
         reserva.setFechaReserva(LocalDate.of(2024, 5, 20));
         reserva.setEstado(Estado.ACTIVA);
 
+        Reporte reporte = new Reporte();
+        reporte.setIdReporte("REP1");
+        reporte.setTipo(TipoReporte.USUARIOS_ACTIVOS);
+        reporte.setDescripcion("Reporte de prueba de usuarios activos");
+        reporte.setContenidoGenerado("Contenido generado de prueba: lista de usuarios activos...");
+
+        reporte.setOwnedByGimnasio(gimnasio);
+
+        gimnasio.getListaReportes().add(reporte);
 
         gimnasio.getListaMembresias().add(membresia);
 

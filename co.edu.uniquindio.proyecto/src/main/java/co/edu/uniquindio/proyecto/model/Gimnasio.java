@@ -1,7 +1,6 @@
 package co.edu.uniquindio.proyecto.model;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
@@ -142,28 +141,70 @@ public class Gimnasio {
         return "Ingreso al gimnasio validado.";
     }
 
-    public void generarReporte(int opcion) {
-        switch (opcion) {
-            case 1 -> generarReporteUsuariosActivos();
-            case 2 -> generarReporteClasesMasReservadas();
-            case 3 -> generarReporteVencimientoMembresias();
-            default -> System.out.println("Opción inválida");
-        }
+    public Reporte crearReporte(TipoReporte tipo, String descripcion) {
+
+        Reporte reporte = new Reporte();
+        reporte.setIdReporte("REP" + (listaReportes.size() + 1));
+        reporte.setTipo(tipo);
+        reporte.setDescripcion(descripcion);
+        reporte.setOwnedByGimnasio(this);
+
+        listaReportes.add(reporte);
+        return reporte;
     }
 
-    private void generarReporteUsuariosActivos() {
-        System.out.println("Usuarios activos");
+    public Reporte generarReporte(TipoReporte tipo, String descripcionIngresada) {
+
+        Reporte reporte = new Reporte();
+        reporte.setIdReporte("REP" + (listaReportes.size() + 1));
+        reporte.setTipo(tipo);
+
+        switch (tipo) {
+            case USUARIOS_ACTIVOS ->
+                    reporte.setContenidoGenerado(generarReporteUsuariosActivos());
+
+            case CLASES_MAS_RESERVADAS ->
+                    reporte.setContenidoGenerado(generarReporteClasesMasReservadas());
+
+            case VENCIMIENTO_MEMBRESIAS ->
+                    reporte.setContenidoGenerado(generarReporteVencimientoMembresias());
+        }
+
+        reporte.setDescripcion(descripcionIngresada);
+
+        listaReportes.add(reporte);
+
+        return reporte;
+    }
+
+
+    private String generarReporteUsuariosActivos() {
+
+        String resultado = "Usuarios activos:\n";
+
         for (Usuario usuario : listaUsuarios) {
-            if (usuario.getMembresia() != null && usuario.getMembresia().getFechaVencimiento().isAfter(LocalDate.now())) {
-                System.out.println(usuario.getNombre() + "/n" + usuario.getIdentificacion());
+
+            if (usuario.getMembresia() != null &&
+                    usuario.getMembresia().getFechaVencimiento().isAfter(LocalDate.now())) {
+
+                resultado = resultado
+                        + usuario.getNombre()
+                        + " - "
+                        + usuario.getIdentificacion()
+                        + "\n";
             }
         }
+        return resultado;
     }
 
-    private void generarReporteClasesMasReservadas() {
-        System.out.println("Clases mas reservadas");
+
+    private String generarReporteClasesMasReservadas() {
+
+        String reporte = "Clases más reservadas:\n";
+
         for (int i = 0; i < listaClases.size() - 1; i++) {
             for (int j = i + 1; j < listaClases.size(); j++) {
+
                 if (listaClases.get(i).getNumeroReservas() < listaClases.get(j).getNumeroReservas()) {
                     Clase temp = listaClases.get(i);
                     listaClases.set(i, listaClases.get(j));
@@ -171,24 +212,39 @@ public class Gimnasio {
                 }
             }
         }
+
         for (Clase clase : listaClases) {
-            System.out.println(clase.getNombre() + "Reservas: " + clase.getNumeroReservas());
+            reporte = reporte
+                    + clase.getNombre()
+                    + " - Reservas: "
+                    + clase.getNumeroReservas()
+                    + "\n";
         }
+
+        return reporte;
     }
 
-    private void generarReporteVencimientoMembresias() {
-        System.out.println("Vencimiento membresias");
+
+    private String generarReporteVencimientoMembresias() {
+        String reporte = "Vencimiento de membresías:\n";
+
         LocalDate hoy = LocalDate.now();
+
         for (Usuario usuario : listaUsuarios) {
             if (usuario.getMembresia() != null) {
                 LocalDate vencimiento = usuario.getMembresia().getFechaVencimiento();
                 long diasRestantes = ChronoUnit.DAYS.between(hoy, vencimiento);
+
                 if (diasRestantes <= 10 && diasRestantes >= 0) {
-                    System.out.println(usuario.getNombre() + "vence en" + diasRestantes + "dias");
+                    reporte += usuario.getNombre() + " vence en "
+                            + diasRestantes + " días\n";
                 }
             }
         }
+
+        return reporte;
     }
+
     public void generarReporteAvanzado(int opcion) {
         switch (opcion) {
             case 1 -> generarReporteAsistenciasUsuario();

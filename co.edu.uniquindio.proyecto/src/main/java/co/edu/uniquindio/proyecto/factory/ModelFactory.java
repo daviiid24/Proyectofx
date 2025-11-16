@@ -86,4 +86,8 @@ public class ModelFactory {
         return gimnasio.validarUsuario(idUsuario);
     }
 
+    public String validarUsuarioAvanzado(String nombre, String idUsuario, String telefono) {
+        return gimnasio.validarUsuarioAvanzado(nombre, idUsuario, telefono);
+    }
+
 }

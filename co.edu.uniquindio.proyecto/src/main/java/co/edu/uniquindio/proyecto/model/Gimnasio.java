@@ -280,32 +280,44 @@ public class Gimnasio {
 
     }
 
-    public boolean validarUsuarioAvanzado(String nombre, String identificacion, String telefono) {
+    public String validarUsuarioAvanzado(String nombre, String identificacion, String telefono) {
+
+        // 1. Validar existencia del usuario
         Usuario usuarioEncontrado = obtenerUsuario(identificacion);
         if (usuarioEncontrado == null) {
-            System.out.println("Usuario no encontrado");
-            return false;
+            return "El usuario no existe.";
         }
+
+        // 2. Validar membresía
         Membresia membresia = usuarioEncontrado.getMembresia();
         if (membresia == null) {
-            System.out.println("El usuario no tiene una membresía asignada");
-            return false;
+            return "El usuario no tiene una membresía asignada.";
         }
+
         if (membresia.getFechaVencimiento().isBefore(LocalDate.now()) ||
                 membresia.getEstado() == Estado.INACTIVA) {
-            System.out.println("La membresía del usuario está vencida o inactiva");
-            return false;
+            return "La membresía del usuario está vencida o inactiva.";
         }
-        if (usuarioEncontrado.getNombre().equals(nombre) && usuarioEncontrado.getIdentificacion().equals(identificacion)
-                && usuarioEncontrado.getTelefono().equals(telefono)) {
-            usuarioEncontrado.registrarAsistencia(
-                    new Asistencia(LocalDate.now(), "Ingreso al gimnasio validado")
-            );
-            return true;
+
+        // 3. VALIDAR LOS 3 DATOS EN UN SOLO IF
+        boolean datosCorrectos =
+                usuarioEncontrado.getNombre().equals(nombre) &&
+                        usuarioEncontrado.getIdentificacion().equals(identificacion) &&
+                        usuarioEncontrado.getTelefono().equals(telefono);
+
+        if (!datosCorrectos) {
+            return "Los datos ingresados no coinciden con los registros.";
         }
-        System.out.println("Los datos ingresados no coinciden");
-        return false;
+
+        // 4. Registro de asistencia
+        usuarioEncontrado.registrarAsistencia(
+                new Asistencia(LocalDate.now(), "Ingreso al gimnasio validado")
+        );
+
+        return "Ingreso al gimnasio validado.";
     }
+
+
 
 
     public Usuario crearUsuario(String nombre, String identificacion, int edad,

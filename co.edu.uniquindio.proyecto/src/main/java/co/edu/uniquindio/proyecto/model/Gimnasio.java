@@ -115,18 +115,6 @@ public class Gimnasio {
                 '}';
     }
 
-    //FALTA
-    public boolean asignarMembresia(String idUsuario, String idMembresia) {
-        Usuario usuarioEncontrado = obtenerUsuario(idUsuario);
-        Membresia membresiaEncontrada = obtenerMembresia(idMembresia);
-        if (usuarioEncontrado != null && membresiaEncontrada != null) {
-            usuarioEncontrado.setMembresia(membresiaEncontrada);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public String validarUsuario(String idUsuario) {
         Usuario usuarioEncontrado = obtenerUsuario(idUsuario);
 
@@ -278,7 +266,7 @@ public class Gimnasio {
                 long diasRestantes = ChronoUnit.DAYS.between(hoy, vencimiento);
 
                 if (diasRestantes <= 10 && diasRestantes >= 0) {
-                    reporte += usuario.getNombre() + " vence en "
+                    reporte += "La membresia de " + usuario.getNombre() + " con el ID " + usuario.getIdentificacion() + " vence en "
                             + diasRestantes + " días\n";
                 }
             }
@@ -761,24 +749,13 @@ public class Gimnasio {
         }
 
         Membresia membresiaEncontrada = obtenerMembresia(idMembresia);
-        if (membresiaEncontrada != null) {
+        if (membresiaEncontrada == null) {
             return null;
         }
 
-
-        switch (tipoMembresia) {
-            case BASICA -> membresiaEncontrada = new MembresiaBasica();
-            case PREMIUM -> membresiaEncontrada = new MembresiaPremium();
-            case VIP -> membresiaEncontrada = new MembresiaVip();
-            default -> {
-                System.out.println("Tipo de membresía inválido");
-                return null;
-            }
-        }
-
-
         double costo = calcularCosto(tipoMembresia, duracion, tipoUsuario);
 
+        membresiaEncontrada.setTipoMembresia(tipoMembresia);
         membresiaEncontrada.setIdMembresia(idMembresia);
         membresiaEncontrada.setTipoMembresia(tipoMembresia);
         membresiaEncontrada.setDuracion(duracion);

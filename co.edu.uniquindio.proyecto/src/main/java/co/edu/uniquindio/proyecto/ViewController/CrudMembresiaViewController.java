@@ -147,6 +147,8 @@ public class CrudMembresiaViewController implements Initializable {
             Membresia membresia=membresiaController.actualizarMembresia(idMembresia, tipoMembresiaTexto, duracionTexto, tipoUsuarioTexto);
             if(membresia!=null){
                 mostrarMensaje("Notificación", "Actualización membresia", "Membresia actualizada",Alert.AlertType.CONFIRMATION);
+                listaMembresias.clear();
+                listaMembresias.addAll(membresiaController.obtenerMembresias());
                 tableMembresia.refresh();
             } else {
                 mostrarMensaje("Notificación", "Actualización membresia", "Membresia no actualizada",Alert.AlertType.WARNING);

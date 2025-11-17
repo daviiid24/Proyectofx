@@ -12,7 +12,7 @@ public class DataUtil {
         Gimnasio gimnasio = new Gimnasio();
 
         Membresia membresia = new MembresiaPremium();
-        membresia.setIdMembresia("MEM001");
+        membresia.setIdMembresia("1001");
         membresia.setTipoMembresia(TipoMembresia.PREMIUM);
         membresia.setDuracion(Duracion.MENSUAL);
         membresia.setCosto(90000);

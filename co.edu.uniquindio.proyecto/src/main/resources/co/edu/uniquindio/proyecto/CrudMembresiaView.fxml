@@ -1,14 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="co.edu.uniquindio.proyecto.controller.MembresiaController"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="572.0" prefWidth="773.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.proyecto.ViewController.CrudMembresiaViewController">
+
+    <children>
+        <SplitPane dividerPositions="0.4" layoutX="14.0" layoutY="14.0" orientation="VERTICAL" prefHeight="550.0" prefWidth="745.0">
+
+            <items>
+
+                <!-- PANEL SUPERIOR -->
+                <AnchorPane prefHeight="280.0" prefWidth="745.0">
+                    <children>
+
+                        <!-- FILA 1 -->
+                        <Label layoutX="84.0" layoutY="26.0" text="ID Membresía:" />
+                        <TextField fx:id="txtIdMembresia" layoutX="170.0" layoutY="22.0" prefHeight="26.0" prefWidth="180.0" />
+
+                        <!-- Texto adicional debajo -->
+                        <Label layoutX="170.0" layoutY="50.0" text="(El mismo del usuario)" />
+
+                        <Label layoutX="411.0" layoutY="26.0" text="Tipo Membresía:" />
+                        <ChoiceBox fx:id="chTipoMembresia" layoutX="510.0" layoutY="22.0" prefWidth="180.0" />
+
+                        <!-- FILA 2 -->
+                        <Label layoutX="84.0" layoutY="94.0" text="Duración:" />
+                        <ChoiceBox fx:id="chDuracion" layoutX="170.0" layoutY="90.0" prefWidth="180.0" />
+
+                        <Label layoutX="411.0" layoutY="94.0" text="Tipo Usuario:" />
+                        <ChoiceBox fx:id="chTipoUsuario" layoutX="510.0" layoutY="90.0" prefWidth="180.0" />
+
+                        <!-- BOTONES CENTRADOS Y SIMÉTRICOS -->
+                        <Button fx:id="btnAgregar" layoutX="100.0" layoutY="155.0" onAction="#onActionAgregar" prefHeight="26.0" prefWidth="160.0" text="Agregar" />
+
+                        <Button fx:id="btnActualizar" layoutX="300.0" layoutY="155.0" onAction="#onActionActualizar" prefHeight="26.0" prefWidth="160.0" text="Actualizar" />
+
+                        <Button fx:id="btnEliminar" layoutX="500.0" layoutY="155.0" onAction="#onActionEliminar" prefHeight="26.0" prefWidth="160.0" text="Eliminar" />
+
+                    </children>
+                </AnchorPane>
+
+                <!-- PANEL DE TABLA -->
+                <AnchorPane prefHeight="270.0" prefWidth="745.0">
+
+                    <children>
+
+                        <TableView fx:id="tableMembresia" layoutX="10.0" layoutY="8.0" prefHeight="310.0" prefWidth="723.0">
+
+                            <columns>
+
+                                <TableColumn fx:id="tcIdMembresia" prefWidth="72.79998683929443" text="ID" />
+
+                                <TableColumn fx:id="tcTipoMembresia" prefWidth="85.59996795654297" text="Tipo" />
+
+                                <TableColumn fx:id="tcDuracion" prefWidth="120.00001525878906" text="Duración" />
+
+                                <TableColumn fx:id="tcTipoUsuario" prefWidth="101.59991455078125" text="Tipo Usuario" />
+
+                                <TableColumn fx:id="tcCosto" prefWidth="97.60003662109375" text="Costo" />
+
+                                <TableColumn fx:id="tcFechaInicio" prefWidth="94.39999389648438" text="Inicio" />
+
+                                <TableColumn fx:id="tcFechaVencimiento" minWidth="0.0" prefWidth="94.39996337890625" text="Vencimiento" />
+                        <TableColumn fx:id="tcEstado" prefWidth="64.800048828125" text="Estado" />
+
+                            </columns>
+
+                        </TableView>
+
+                    </children>
+
+                </AnchorPane>
+
+            </items>
+
+        </SplitPane>
+    </children>
 
 </AnchorPane>

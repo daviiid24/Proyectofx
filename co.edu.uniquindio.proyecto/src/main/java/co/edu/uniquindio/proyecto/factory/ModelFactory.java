@@ -130,4 +130,21 @@ public class ModelFactory {
         return gimnasio.buscarReporteAdministrador(idReporte);
     }
 
+    public List<Membresia> obtenerMembresias() {
+        return gimnasio.getListaMembresias();
+    }
+
+    public Membresia crearMembresia(String idMembresia, String tipoMembresiaTexto, String duracionTexto, String tipoUsuarioTexto) {
+        return gimnasio.crearMembresia(idMembresia, TipoMembresia.valueOf(tipoMembresiaTexto), Duracion.valueOf(duracionTexto), TipoUsuario.valueOf(tipoUsuarioTexto));
+    }
+
+    public Membresia actualizarMembresia(String idMembresia, String tipoMembresiaTexto, String duracionTexto, String tipoUsuarioTexto) {
+        return gimnasio.actualizarMembresia(idMembresia, TipoMembresia.valueOf(tipoMembresiaTexto), Duracion.valueOf(duracionTexto), TipoUsuario.valueOf(tipoUsuarioTexto));
+    }
+
+    public Membresia eliminarMembresia(String idMembresia) {
+        return gimnasio.eliminarMembresia(idMembresia);
+    }
+
+
 }

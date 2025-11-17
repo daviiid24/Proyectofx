@@ -11,9 +11,9 @@ public class DataUtil {
     public static Gimnasio inicializarDatos() {
         Gimnasio gimnasio = new Gimnasio();
 
-        Membresia membresia = new Membresia();
+        Membresia membresia = new MembresiaPremium();
         membresia.setIdMembresia("MEM001");
-        membresia.setTipo(TipoMembresia.PREMIUM);
+        membresia.setTipoMembresia(TipoMembresia.PREMIUM);
         membresia.setDuracion(Duracion.MENSUAL);
         membresia.setCosto(90000);
         membresia.setFechaInicio(LocalDate.of(2025, 11, 14));

@@ -681,10 +681,19 @@ public class Gimnasio {
         return claseEncontrada;
     }
     //CRUD MEMBRESIA
-    public boolean crearMembresia(String idMembresia, TipoMembresia tipoMembresia, Duracion duracion, TipoUsuario tipoUsuario) {
+    public Membresia crearMembresia(String idMembresia, TipoMembresia tipoMembresia, Duracion duracion, TipoUsuario tipoUsuario) {
+
+        Usuario usuarioEncontrado = obtenerUsuario(idMembresia);
+
+        if (usuarioEncontrado == null) {
+            System.out.println("No existe un usuario con ese ID");
+            return null;
+        }
+
         Membresia membresiaEncontrada = obtenerMembresia(idMembresia);
+
         if (membresiaEncontrada != null) {
-            return false;
+            return null;
         }
 
         Membresia membresia;
@@ -695,7 +704,7 @@ public class Gimnasio {
             case VIP -> membresia = new MembresiaVip();
             default -> {
                 System.out.println("Tipo de membresía inválido");
-                return false;
+                return null;
             }
         }
 
@@ -725,8 +734,86 @@ public class Gimnasio {
             membresia.setEstado(Estado.ACTIVA);
 
             getListaMembresias().add(membresia);
+            usuarioEncontrado.setMembresia(membresia);
 
-            return true;
+            return membresia;
+    }
+
+    public Membresia eliminarMembresia(String idEliminar) {
+            Membresia membresiaEncontrada = obtenerMembresia(idEliminar);
+            Usuario usuarioEncontrado = obtenerUsuario(idEliminar);
+            if (membresiaEncontrada != null) {
+                getListaMembresias().remove(membresiaEncontrada);
+                usuarioEncontrado.setMembresia(null);
+                return membresiaEncontrada;
+            } else {
+                return null;
+            }
+        }
+
+    public Membresia actualizarMembresia(String idMembresia, TipoMembresia tipoMembresia, Duracion duracion, TipoUsuario tipoUsuario) {
+
+        Usuario usuarioEncontrado = obtenerUsuario(idMembresia);
+
+        if (usuarioEncontrado == null) {
+            System.out.println("No existe un usuario con ese ID");
+            return null;
+        }
+
+        Membresia membresiaEncontrada = obtenerMembresia(idMembresia);
+        if (membresiaEncontrada != null) {
+            return null;
+        }
+
+
+        switch (tipoMembresia) {
+            case BASICA -> membresiaEncontrada = new MembresiaBasica();
+            case PREMIUM -> membresiaEncontrada = new MembresiaPremium();
+            case VIP -> membresiaEncontrada = new MembresiaVip();
+            default -> {
+                System.out.println("Tipo de membresía inválido");
+                return null;
+            }
+        }
+
+
+        double costo = calcularCosto(tipoMembresia, duracion, tipoUsuario);
+
+        membresiaEncontrada.setIdMembresia(idMembresia);
+        membresiaEncontrada.setTipoMembresia(tipoMembresia);
+        membresiaEncontrada.setDuracion(duracion);
+        membresiaEncontrada.setTipoUsuario(tipoUsuario);
+        membresiaEncontrada.setCosto(costo);
+        membresiaEncontrada.setFechaInicio(LocalDate.now());
+        membresiaEncontrada.setEstado(Estado.ACTIVA);
+
+        LocalDate fechaVencimiento;
+
+        if (duracion==Duracion.MENSUAL) {
+            fechaVencimiento=LocalDate.now().plusMonths(1);
+        } else if (duracion == Duracion.TRIMESTRAL) {
+            fechaVencimiento=LocalDate.now().plusMonths(3);
+        } else if (duracion == Duracion.ANUAL) {
+            fechaVencimiento=LocalDate.now().plusYears(1);
+        } else {
+            fechaVencimiento=LocalDate.now().plusMonths(1);
+        }
+        membresiaEncontrada.setFechaVencimiento(fechaVencimiento);
+        membresiaEncontrada.setEstado(Estado.ACTIVA);
+        usuarioEncontrado.setMembresia(membresiaEncontrada);
+
+        return membresiaEncontrada;
+    }
+
+    public Membresia obtenerMembresia(String idMembresia) {
+        Membresia membresiaEncontrada=null;
+        for (Membresia membresia : getListaMembresias()) {
+            if (membresia.getIdMembresia().equalsIgnoreCase(idMembresia)) {
+                membresiaEncontrada=membresia;
+                break;
+            }
+        }
+        return membresiaEncontrada;
     }
 
     private double calcularCosto(TipoMembresia tipoMembresia, Duracion duracion, TipoUsuario tipoUsuario) {
@@ -753,54 +840,6 @@ public class Gimnasio {
         return base;
     }
 
-
-    public boolean eliminarMembresia(String idEliminar) {
-            Membresia membresiaEncontrada = obtenerMembresia(idEliminar);
-            if (membresiaEncontrada != null) {
-                getListaMembresias().remove(membresiaEncontrada);
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-    public boolean actualizarMembresia(String idMembresia, TipoMembresia tipo, Duracion duracion,
-                                       double costo) {
-        Membresia membresiaEncontrada = obtenerMembresia(idMembresia);
-        if (membresiaEncontrada != null) {
-            membresiaEncontrada.setTipo(tipo);
-            membresiaEncontrada.setDuracion(duracion);
-            membresiaEncontrada.setCosto(costo);
-            membresiaEncontrada.setFechaInicio(LocalDate.now());
-            LocalDate fechaVencimiento;
-            if (duracion==Duracion.MENSUAL) {
-                fechaVencimiento=LocalDate.now().plusMonths(1);
-            } else if (duracion == Duracion.TRIMESTRAL) {
-                fechaVencimiento=LocalDate.now().plusMonths(3);
-            } else if (duracion == Duracion.ANUAL) {
-                fechaVencimiento=LocalDate.now().plusYears(1);
-            } else {
-                fechaVencimiento=LocalDate.now().plusMonths(1);
-            }
-            membresiaEncontrada.setFechaVencimiento(fechaVencimiento);
-            membresiaEncontrada.setEstado(Estado.ACTIVA);
-
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public Membresia obtenerMembresia(String idMembresia) {
-        Membresia membresiaEncontrada=null;
-        for (Membresia membresia : getListaMembresias()) {
-            if (membresia.getIdMembresia().equalsIgnoreCase(idMembresia)) {
-                membresiaEncontrada=membresia;
-                break;
-            }
-        }
-        return membresiaEncontrada;
-    }
     //CRUD RESERVA
     public Reserva crearReserva(String idReserva, String idUsuario, String nombreClase) {
         Reserva reservaEncontrada=obtenerReserva(idReserva);

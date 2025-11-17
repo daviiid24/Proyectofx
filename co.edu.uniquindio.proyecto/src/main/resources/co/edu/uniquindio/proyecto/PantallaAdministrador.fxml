@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="713.0" prefWidth="893.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.proyecto.ViewController.ProyectoViewController">
+<AnchorPane prefHeight="713.0" prefWidth="893.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.proyecto.ViewController.PantallaAdministradorViewController">
     <children>
         <TabPane layoutX="14.0" layoutY="14.0" prefHeight="698.0" prefWidth="873.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
@@ -13,7 +14,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <SplitPane layoutX="14.0" layoutY="7.0" orientation="VERTICAL" prefHeight="621.0" prefWidth="931.0">
+                                <SplitPane layoutX="-1.0" orientation="VERTICAL" prefHeight="673.0" prefWidth="874.0">
                                     <items>
                                         <fx:include source="CrudEntrenadorView.fxml" />
                                     </items>
@@ -24,9 +25,9 @@
                 </Tab>
                 <Tab text="Asistencia Avanzada">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="618.0" prefWidth="927.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="664.0" prefWidth="871.0">
                             <children>
-                                <SplitPane layoutX="14.0" layoutY="14.0" orientation="VERTICAL" prefHeight="618.0" prefWidth="927.0">
+                                <SplitPane layoutX="-1.0" layoutY="2.0" orientation="VERTICAL" prefHeight="670.0" prefWidth="874.0">
                                     <items>
                                         <fx:include source="ConsultaAsistenciaAdministradorView.fxml" />
                                     </items>
@@ -39,7 +40,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="618.0" prefWidth="927.0">
                             <children>
-                                <SplitPane layoutX="14.0" layoutY="14.0" orientation="VERTICAL" prefHeight="618.0" prefWidth="927.0">
+                                <SplitPane orientation="VERTICAL" prefHeight="668.0" prefWidth="874.0">
                                     <items>
                                         <fx:include source="CrudReporteAvanzado.fxml" />
                                     </items>
@@ -52,7 +53,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="618.0" prefWidth="927.0">
                             <children>
-                                <SplitPane layoutX="14.0" layoutY="14.0" orientation="VERTICAL" prefHeight="618.0" prefWidth="927.0">
+                                <SplitPane layoutY="1.0" orientation="VERTICAL" prefHeight="668.0" prefWidth="874.0">
                                     <items>
                                         <fx:include source="ConsultaReporteAvanzadoView.fxml" />
                                     </items>
@@ -63,5 +64,6 @@
                 </Tab>
             </tabs>
         </TabPane>
+      <Button fx:id="btnCerrarSesion" layoutX="792.0" layoutY="15.0" mnemonicParsing="false" onAction="#onActionCerrarSesion" text="Cerrar Sesión" />
     </children>
 </AnchorPane>

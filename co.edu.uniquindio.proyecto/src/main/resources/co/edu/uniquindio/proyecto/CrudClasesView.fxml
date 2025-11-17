@@ -19,10 +19,10 @@
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
 
-<AnchorPane prefHeight="700" prefWidth="900" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.proyecto.ViewController.CrudClasesViewController">
+<AnchorPane prefHeight="572.0" prefWidth="773.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.proyecto.ViewController.CrudClasesViewController">
 
     <children>
-        <VBox alignment="TOP_CENTER" prefHeight="700" prefWidth="900" spacing="10" style="-fx-background-color: #f8f8f8;">
+        <VBox alignment="TOP_CENTER" prefHeight="546.0" prefWidth="747.0" spacing="10" style="-fx-background-color: #f8f8f8;">
             <padding>
                 <Insets bottom="20" left="20" right="20" top="20" />
             </padding>
@@ -99,12 +99,12 @@
             <Separator prefWidth="850" />
          <TableView fx:id="tableClases" prefHeight="358.0" prefWidth="864.0">
             <columns>
-               <TableColumn fx:id="tcNombre" prefWidth="150" text="Nombre" />
-               <TableColumn fx:id="tcTipoClase" prefWidth="150" text="Tipo de Clase" />
-               <TableColumn fx:id="tcHorario" prefWidth="120" text="Horario" />
-               <TableColumn fx:id="tcCupoMaximo" prefWidth="120" text="Cupo Máximo" />
-               <TableColumn fx:id="tcEntrenador" prefWidth="150" text="Entrenador" />
-               <TableColumn fx:id="tcUsuariosRegistrados" prefWidth="167.199951171875" text="Usuarios Registrados" />
+               <TableColumn fx:id="tcNombre" prefWidth="134.39998817443848" text="Nombre" />
+               <TableColumn fx:id="tcTipoClase" prefWidth="152.79998779296875" text="Tipo de Clase" />
+               <TableColumn fx:id="tcHorario" prefWidth="104.0" text="Horario" />
+               <TableColumn fx:id="tcCupoMaximo" prefWidth="94.4000244140625" text="Cupo Máximo" />
+               <TableColumn fx:id="tcEntrenador" prefWidth="93.60006713867188" text="Entrenador" />
+               <TableColumn fx:id="tcUsuariosRegistrados" prefWidth="150.40008544921875" text="Usuarios Registrados" />
             </columns>
          </TableView>
         </VBox>

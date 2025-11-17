@@ -681,18 +681,38 @@ public class Gimnasio {
         return claseEncontrada;
     }
     //CRUD MEMBRESIA
-    public boolean crearMembresia(String idMembresia, TipoMembresia tipo, Duracion duracion,
-                                  double costo) {
+    public boolean crearMembresia(String idMembresia, TipoMembresia tipoMembresia, Duracion duracion, TipoUsuario tipoUsuario) {
         Membresia membresiaEncontrada = obtenerMembresia(idMembresia);
-        if (membresiaEncontrada == null) {
-            Membresia membresia = new Membresia();
-            membresia.setIdMembresia(idMembresia);
-            membresia.setTipo(tipo);
-            membresia.setDuracion(duracion);
-            membresia.setCosto(costo);
-            membresia.setFechaInicio(LocalDate.now());
-            LocalDate fechaVencimiento;
-            if (duracion==Duracion.MENSUAL) {
+        if (membresiaEncontrada != null) {
+            return false;
+        }
+
+        Membresia membresia;
+
+        switch (tipoMembresia) {
+            case BASICA -> membresia = new MembresiaBasica();
+            case PREMIUM -> membresia = new MembresiaPremium();
+            case VIP -> membresia = new MembresiaVip();
+            default -> {
+                System.out.println("Tipo de membresía inválido");
+                return false;
+            }
+        }
+
+
+        double costo = calcularCosto(tipoMembresia, duracion, tipoUsuario);
+
+        membresia.setIdMembresia(idMembresia);
+        membresia.setTipoMembresia(tipoMembresia);
+        membresia.setDuracion(duracion);
+        membresia.setTipoUsuario(tipoUsuario);
+        membresia.setCosto(costo);
+        membresia.setFechaInicio(LocalDate.now());
+        membresia.setEstado(Estado.ACTIVA);
+
+        LocalDate fechaVencimiento;
+
+        if (duracion==Duracion.MENSUAL) {
                 fechaVencimiento=LocalDate.now().plusMonths(1);
             } else if (duracion == Duracion.TRIMESTRAL) {
                 fechaVencimiento=LocalDate.now().plusMonths(3);
@@ -705,20 +725,44 @@ public class Gimnasio {
             membresia.setEstado(Estado.ACTIVA);
 
             getListaMembresias().add(membresia);
+
             return true;
-        } else {
-            return false;
-        }
     }
+
+    private double calcularCosto(TipoMembresia tipoMembresia, Duracion duracion, TipoUsuario tipoUsuario) {
+        double base = 0;
+
+        switch (tipoMembresia) {
+            case BASICA -> base = 25000;
+            case PREMIUM -> base = 50000;
+            case VIP -> base = 80000;
+        }
+
+        switch (duracion) {
+            case MENSUAL -> base *= 1;
+            case TRIMESTRAL -> base *= 3;
+            case ANUAL -> base *= 12;
+        }
+
+        switch (tipoUsuario) {
+            case ESTUDIANTE -> base *= 0.8;
+            case TRABAJADOR_UQ -> base *= 0.9;
+            case EXTERNO -> base *= 1.0;
+        }
+
+        return base;
+    }
+
+
     public boolean eliminarMembresia(String idEliminar) {
-        Membresia membresiaEncontrada = obtenerMembresia(idEliminar);
-        if (membresiaEncontrada != null) {
-            getListaMembresias().remove(membresiaEncontrada);
-            return true;
-        } else {
-            return false;
+            Membresia membresiaEncontrada = obtenerMembresia(idEliminar);
+            if (membresiaEncontrada != null) {
+                getListaMembresias().remove(membresiaEncontrada);
+                return true;
+            } else {
+                return false;
+            }
         }
-    }
 
     public boolean actualizarMembresia(String idMembresia, TipoMembresia tipo, Duracion duracion,
                                        double costo) {

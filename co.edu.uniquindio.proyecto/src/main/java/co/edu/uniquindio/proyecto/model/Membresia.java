@@ -4,8 +4,9 @@ import java.time.LocalDate;
 
 public class Membresia {
     private String idMembresia;
-    private TipoMembresia tipo;
+    private TipoMembresia tipoMembresia;
     private Duracion duracion;
+    private TipoUsuario tipoUsuario;
     private double costo;
     private LocalDate fechaInicio;
     private LocalDate fechaVencimiento;
@@ -15,9 +16,9 @@ public class Membresia {
     public Membresia() {
     }
 
-    public Membresia(String idMembresia, TipoMembresia tipo, Duracion duracion, double costo) {
+    public Membresia(String idMembresia, TipoMembresia tipoMembresia, Duracion duracion, double costo) {
         this.idMembresia=idMembresia;
-        this.tipo = tipo;
+        this.tipoMembresia = tipoMembresia;
         this.duracion = duracion;
         this.costo = costo;
         this.fechaInicio = LocalDate.now();
@@ -32,12 +33,12 @@ public class Membresia {
         this.idMembresia = idMembresia;
     }
 
-    public TipoMembresia getTipo() {
-        return tipo;
+    public TipoMembresia getTipoMembresia() {
+        return tipoMembresia;
     }
 
-    public void setTipo(TipoMembresia tipo) {
-        this.tipo = tipo;
+    public void setTipoMembresia(TipoMembresia tipoMembresia) {
+        this.tipoMembresia = tipoMembresia;
     }
 
     public Duracion getDuracion() {
@@ -46,6 +47,14 @@ public class Membresia {
 
     public void setDuracion(Duracion duracion) {
         this.duracion = duracion;
+    }
+
+    public TipoUsuario getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(TipoUsuario tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
 
     public double getCosto() {
@@ -92,8 +101,9 @@ public class Membresia {
     public String toString() {
         return "Membresia{" +
                 "idMembresia='" + idMembresia + '\'' +
-                ", tipo=" + tipo +
+                ", tipoMembresia=" + tipoMembresia +
                 ", duracion=" + duracion +
+                ", tipoUsuario=" + tipoUsuario +
                 ", costo=" + costo +
                 ", fechaInicio=" + fechaInicio +
                 ", fechaVencimiento=" + fechaVencimiento +

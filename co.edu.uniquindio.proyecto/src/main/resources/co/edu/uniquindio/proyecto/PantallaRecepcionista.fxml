@@ -9,7 +9,7 @@
     <children>
         <TabPane layoutX="14.0" layoutY="14.0" prefHeight="698.0" prefWidth="873.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
-                <Tab text="Crud Usuario">
+                <Tab text="Usuarios">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
@@ -22,33 +22,7 @@
                         </AnchorPane>
                     </content>
                 </Tab>
-                <Tab text="Crud Entrenador">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <children>
-                                <SplitPane layoutX="14.0" layoutY="7.0" orientation="VERTICAL" prefHeight="621.0" prefWidth="931.0">
-                                    <items>
-                                        <fx:include source="CrudEntrenadorView.fxml" />
-                                    </items>
-                                </SplitPane>
-                            </children>
-                        </AnchorPane>
-                    </content>
-                </Tab>
-            <Tab text="Crud Clases">
-                <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="618.0" prefWidth="927.0">
-                        <children>
-                            <SplitPane layoutX="-14.0" orientation="VERTICAL" prefHeight="624.0" prefWidth="821.0">
-                                <items>
-                                    <fx:include source="CrudClasesView.fxml" />
-                                </items>
-                            </SplitPane>
-                        </children>
-                    </AnchorPane>
-                </content>
-            </Tab>
-                <Tab text="Crud Membresia">
+                <Tab text="Membresias">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
@@ -61,7 +35,20 @@
                         </AnchorPane>
                     </content>
                 </Tab>
-            <Tab text="Crud Reserva">
+            <Tab text="Clases">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="618.0" prefWidth="927.0">
+                        <children>
+                            <SplitPane layoutX="-14.0" orientation="VERTICAL" prefHeight="624.0" prefWidth="821.0">
+                                <items>
+                                    <fx:include source="CrudClasesView.fxml" />
+                                </items>
+                            </SplitPane>
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
+            <Tab text="Reservas">
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="618.0" prefWidth="927.0">
                         <children>
@@ -74,7 +61,7 @@
                     </AnchorPane>
                 </content>
             </Tab>
-            <Tab text="Asistencia Recepcionista">
+            <Tab text="Asistencia">
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="618.0" prefWidth="927.0">
                         <children>
@@ -87,20 +74,7 @@
                     </AnchorPane>
                 </content>
             </Tab>
-            <Tab text="Asistencia Administrador">
-                <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="618.0" prefWidth="927.0">
-                        <children>
-                            <SplitPane layoutX="14.0" layoutY="14.0" orientation="VERTICAL" prefHeight="618.0" prefWidth="927.0">
-                                <items>
-                                    <fx:include source="ConsultaAsistenciaAdministradorView.fxml" />
-                                </items>
-                            </SplitPane>
-                        </children>
-                    </AnchorPane>
-                </content>
-            </Tab>
-            <Tab text="Reportes Recepcionista">
+            <Tab text="Reportes">
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="618.0" prefWidth="927.0">
                         <children>
@@ -125,24 +99,6 @@
                         </children>
                     </AnchorPane>
                 </content>
-            </Tab>
-            <Tab text="Reportes Administrador">
-                <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="618.0" prefWidth="927.0">
-                        <children>
-                            <SplitPane layoutX="14.0" layoutY="14.0" orientation="VERTICAL" prefHeight="618.0" prefWidth="927.0">
-                                <items>
-                                    <fx:include source="CrudReporteAvanzado.fxml" />
-                                </items>
-                            </SplitPane>
-                        </children>
-                    </AnchorPane>
-                </content>
-            </Tab>
-            <Tab text="Consulta Reportes Administrador">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
             </Tab>
             </tabs>
         </TabPane>

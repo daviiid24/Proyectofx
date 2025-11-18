@@ -7,17 +7,34 @@ import java.util.ArrayList;
 public class Usuario extends Persona {
     private TipoUsuario tipoUsuario;
     private Membresia membresia;
-    private ArrayList<Reserva> reservas=new ArrayList();
-    private final ArrayList<Asistencia> asistencias = new ArrayList<>();
+    private ArrayList<Reserva> reservas = new ArrayList();
+    private String reservasTexto;
+    private ArrayList<Asistencia> asistencias = new ArrayList<>();
     private Gimnasio ownedByGimnasio;
 
-    public Usuario() {}
+    public Usuario() {
+    }
 
-    public TipoUsuario getTipoUsuario() { return tipoUsuario; }
-    public void setTipoUsuario(TipoUsuario tipoUsuario) { this.tipoUsuario = tipoUsuario; }
+    public Usuario(ArrayList<Reserva> reservas) {
+        actualizarReservasTexto();
+    }
 
-    public Membresia getMembresia() { return membresia; }
-    public void setMembresia(Membresia membresia) { this.membresia = membresia; }
+
+    public TipoUsuario getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(TipoUsuario tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
+    }
+
+    public Membresia getMembresia() {
+        return membresia;
+    }
+
+    public void setMembresia(Membresia membresia) {
+        this.membresia = membresia;
+    }
 
     public ArrayList getReservas() {
         return reservas;
@@ -25,6 +42,14 @@ public class Usuario extends Persona {
 
     public void setReservas(ArrayList reservas) {
         this.reservas = reservas;
+    }
+
+    public String getReservasTexto() {
+        return reservasTexto;
+    }
+
+    public void setReservasTexto(String reservasTexto) {
+        this.reservasTexto = reservasTexto;
     }
 
     public ArrayList<Asistencia> getAsistencias() {
@@ -52,4 +77,21 @@ public class Usuario extends Persona {
                 ", ownedByGimnasio=" + ownedByGimnasio +
                 '}';
     }
+
+    public void actualizarReservasTexto() {
+        if (reservas == null || reservas.isEmpty()) {
+            reservasTexto = "Sin usuarios registrados";
+        } else {
+            String texto = "";
+            for (int i = 0; i < reservas.size(); i++) {
+                texto += reservas.get(i).getIdReserva();
+                if (i < reservas.size() - 1) {
+                    texto += ", ";
+                }
+            }
+            reservasTexto = texto;
+        }
+    }
 }
+
+

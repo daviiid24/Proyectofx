@@ -50,7 +50,7 @@ public class Entrenador extends Persona {
         } else {
             String texto = "";
             for (int i = 0; i < claseAsignadas.size(); i++) {
-                texto += claseAsignadas.get(i);
+                texto += claseAsignadas.get(i).getNombre();
                 if (i < claseAsignadas.size() - 1) {
                     texto += ", ";
                 }

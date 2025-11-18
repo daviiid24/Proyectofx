@@ -60,6 +60,9 @@ public class CrudUsuarioViewController implements Initializable {
     private TableColumn<Usuario, String> tcTipoUsuario;
 
     @FXML
+    private TableColumn<Usuario, String> tcReservas;
+
+    @FXML
     private TextField txtTelefono;
 
     @FXML
@@ -194,6 +197,7 @@ public class CrudUsuarioViewController implements Initializable {
         tcEdad.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getEdad())));
         tcTelefono.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTelefono()));
         tcTipoUsuario.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getTipoUsuario())));
+        tcReservas.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getReservasTexto())));
     }
 
     private void listenerSelection() {

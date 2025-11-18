@@ -548,6 +548,8 @@ public class Gimnasio {
             entrenador.setTelefono(telefono);
             getListaEntrenadores().add(entrenador);
 
+            entrenador.actualizarClasesAsignadasTexto();
+
             return entrenador;
         } else {
             return null;
@@ -572,6 +574,8 @@ public class Gimnasio {
             entrenadorEncontrado.setIdentificacion(identificacion);
             entrenadorEncontrado.setEdad(edad);
             entrenadorEncontrado.setTelefono(telefono);
+
+            entrenadorEncontrado.actualizarClasesAsignadasTexto();
 
             return entrenadorEncontrado;
         } else {
@@ -823,6 +827,11 @@ public class Gimnasio {
         if (reservaEncontrada == null) {
         Usuario usuario = obtenerUsuario(idUsuario);
         Clase clase = obtenerClase(nombreClase);
+        Membresia membresia = usuario.getMembresia();
+
+        if (membresia.equals(TipoMembresia.BASICA)){
+            return null;
+        }
 
         if (usuario == null || clase == null) {
             return null;
@@ -840,7 +849,8 @@ public class Gimnasio {
             getListaReservas().add(reserva);
 
             clase.getListaUsuariosRegistrados().add(usuario);
-
+            usuario.getReservas().add(reserva);
+            usuario.actualizarReservasTexto();
             return reserva;
         } else {
             return null;
@@ -862,6 +872,7 @@ public class Gimnasio {
     }
     public Reserva actualizarReserva(String idReserva, String idUsuario, String nombreClase) {
         Reserva reservaEncontrada=obtenerReserva(idReserva);
+        Usuario usuario = obtenerUsuario(idUsuario);
         if (reservaEncontrada != null) {
             Clase claseAnterior = reservaEncontrada.getClase();
             Usuario usuarioAnterior = reservaEncontrada.getUsuario();
@@ -880,7 +891,7 @@ public class Gimnasio {
             reservaEncontrada.setEstado(Estado.ACTIVA);
 
             nuevaClase.getListaUsuariosRegistrados().add(nuevoUsuario);
-
+            usuario.actualizarReservasTexto();
             return reservaEncontrada;
         } else {
             return null;

@@ -207,7 +207,7 @@ public class CrudClasesViewController implements Initializable {
             txtNombre.setText(claseSeleccionada.getNombre());
             txtHorario.setText(claseSeleccionada.getHorario());
             txtCupoMaximo.setText(String.valueOf(claseSeleccionada.getCupoMaximo()));
-            txtIdEntrenador.setText(claseSeleccionada.getEntrenador().getNombre());
+            txtIdEntrenador.setText(claseSeleccionada.getEntrenador().getIdentificacion());
             chTipoClase.setValue(claseSeleccionada.getTipoClase());
         }
     }

@@ -37,11 +37,12 @@
                     <children>
                         <TableView fx:id="tableUsuario" layoutX="14.0" layoutY="14.0" prefHeight="311.0" prefWidth="723.0">
                             <columns>
-                                <TableColumn fx:id="tcNombre" prefWidth="156.79992961883545" text="Nombre" />
-                                <TableColumn fx:id="tcIdentificacion" prefWidth="232.0000762939453" text="Identificación" />
-                                <TableColumn fx:id="tcEdad" prefWidth="63.199951171875" text="Edad" />
-                                <TableColumn fx:id="tcTelefono" minWidth="0.0" prefWidth="142.39999389648438" text="Telefono" />
-                        <TableColumn fx:id="tcTipoUsuario" prefWidth="129.5999755859375" text="Tipo de usuario" />
+                                <TableColumn fx:id="tcNombre" prefWidth="188.80004024505615" text="Nombre" />
+                                <TableColumn fx:id="tcIdentificacion" prefWidth="178.3999786376953" text="Identificación" />
+                                <TableColumn fx:id="tcEdad" prefWidth="63.20001220703125" text="Edad" />
+                                <TableColumn fx:id="tcTelefono" minWidth="0.0" prefWidth="97.60006713867188" text="Telefono" />
+                        <TableColumn fx:id="tcTipoUsuario" prefWidth="111.99993896484375" text="Tipo de usuario" />
+                        <TableColumn fx:id="tcReservas" prefWidth="82.4000244140625" text="Reservas" />
                             </columns>
                         </TableView>
                     </children>

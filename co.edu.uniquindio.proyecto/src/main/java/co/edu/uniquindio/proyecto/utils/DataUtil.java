@@ -21,6 +21,7 @@ public class DataUtil {
         membresia1.setIdMembresia("1001");
         membresia1.setTipoMembresia(TipoMembresia.BASICA);
         membresia1.setDuracion(Duracion.MENSUAL);
+        membresia1.setTipoUsuario(TipoUsuario.ESTUDIANTE);
         membresia1.setCosto(60000);
         membresia1.setFechaInicio(LocalDate.of(2025, 1, 10));
         membresia1.setFechaVencimiento(LocalDate.of(2025, 2, 10));
@@ -30,6 +31,7 @@ public class DataUtil {
         membresia2.setIdMembresia("1002");
         membresia2.setTipoMembresia(TipoMembresia.PREMIUM);
         membresia2.setDuracion(Duracion.TRIMESTRAL);
+        membresia2.setTipoUsuario(TipoUsuario.EXTERNO);
         membresia2.setCosto(240000);
         membresia2.setFechaInicio(LocalDate.of(2025, 2, 1));
         membresia2.setFechaVencimiento(LocalDate.of(2025, 5, 1));
@@ -39,6 +41,7 @@ public class DataUtil {
         membresia3.setIdMembresia("1003");
         membresia3.setTipoMembresia(TipoMembresia.VIP);
         membresia3.setDuracion(Duracion.ANUAL);
+        membresia3.setTipoUsuario(TipoUsuario.TRABAJADOR_UQ);
         membresia3.setCosto(900000);
         membresia3.setFechaInicio(LocalDate.of(2025, 3, 15));
         membresia3.setFechaVencimiento(LocalDate.of(2026, 3, 15));

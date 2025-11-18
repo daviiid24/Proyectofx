@@ -11,12 +11,6 @@ public class DataUtil {
 
         Gimnasio gimnasio = new Gimnasio();
 
-        /*
-         * ===========================
-         *      MEMBRESÍAS (3)
-         * ===========================
-         */
-
         Membresia membresia1 = new MembresiaBasica();
         membresia1.setIdMembresia("1001");
         membresia1.setTipoMembresia(TipoMembresia.BASICA);
@@ -51,13 +45,6 @@ public class DataUtil {
         gimnasio.getListaMembresias().add(membresia2);
         gimnasio.getListaMembresias().add(membresia3);
 
-
-        /*
-         * ===========================
-         *      USUARIOS (3)
-         * ===========================
-         */
-
         Usuario usuario1 = new Usuario();
         usuario1.setNombre("Laura Martínez");
         usuario1.setEdad(24);
@@ -86,13 +73,6 @@ public class DataUtil {
         gimnasio.getListaUsuarios().add(usuario2);
         gimnasio.getListaUsuarios().add(usuario3);
 
-
-        /*
-         * ===========================
-         *      ENTRENADORES (3)
-         * ===========================
-         */
-
         Entrenador entrenador1 = new Entrenador();
         entrenador1.setNombre("Andrés López");
         entrenador1.setEdad(36);
@@ -117,13 +97,6 @@ public class DataUtil {
         gimnasio.getListaEntrenadores().add(entrenador1);
         gimnasio.getListaEntrenadores().add(entrenador2);
         gimnasio.getListaEntrenadores().add(entrenador3);
-
-
-        /*
-         * ===========================
-         *         CLASES (3)
-         * ===========================
-         */
 
         Clase clase1 = new Clase();
         clase1.setNombre("Entrenamiento Funcional");
@@ -166,12 +139,6 @@ public class DataUtil {
         entrenador3.getClasesAsignadas().add(clase3);
         entrenador3.actualizarClasesAsignadasTexto();
 
-        /*
-         * ===========================
-         *        RESERVAS (3)
-         * ===========================
-         */
-
         Reserva reserva1 = new Reserva();
         reserva1.setIdReserva("R001");
         reserva1.setUsuario(usuario1);
@@ -204,13 +171,6 @@ public class DataUtil {
         usuario2.actualizarReservasTexto();
         usuario3.actualizarReservasTexto();
 
-
-        /*
-         * ========================================
-         *   REPORTE RECEPCIONISTA (ÚNICO)
-         * ========================================
-         */
-
         ReporteRecepcionista reporteRecepcionista = new ReporteRecepcionista();
         reporteRecepcionista.setIdReporte("REP_R_01");
         reporteRecepcionista.setTipoRecepcionista(TipoReporte.USUARIOS_ACTIVOS);
@@ -218,13 +178,6 @@ public class DataUtil {
         reporteRecepcionista.setContenidoGenerado("Lista generada de usuarios activos y asistencia semanal.");
 
         gimnasio.getListaReportesRecepcionista().add(reporteRecepcionista);
-
-
-        /*
-         * ========================================
-         *    REPORTE ADMINISTRADOR (ÚNICO)
-         * ========================================
-         */
 
         ReporteAdministrador reporteAdministrador = new ReporteAdministrador();
         reporteAdministrador.setIdReporte("REP_A_01");
